@@ -4,6 +4,6 @@
 
 @layer base {
   body {
-    @apply bg-gray-900 text-gray-200;
+    @apply bg-dark-900 text-gray-200 font-poppins;
   }
 }

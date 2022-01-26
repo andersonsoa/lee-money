@@ -1,6 +1,9 @@
-import { FaGithub, FaGoogle } from "react-icons/fa";
-import type { NextPage } from "next";
+import NextLink from "next/link";
 import dynamic from "next/dynamic";
+import type { NextPage } from "next";
+
+import { FaGithub, FaGoogle } from "react-icons/fa";
+
 import { Logo } from "../components/Logo";
 
 const Animation = dynamic(() => import("../components/Animations"), { ssr: false });
@@ -21,15 +24,19 @@ const Login: NextPage = () => {
           <div>
             <p className="mb-4 text-sm text-gray-400">Acesse com</p>
             <div className="space-y-4">
-              <button className="bg-dark-800 py-4 px-12 rounded-md text-md w-full uppercase tracking-normal flex justify-center items-center gap-2">
-                <FaGithub role="img" className="text-2xl" />
-                Github
-              </button>
+              <NextLink href="/home">
+                <button className="bg-dark-700 py-4 px-12 rounded-md text-md w-full uppercase tracking-normal flex justify-center items-center shadow-md gap-4 hover:brightness-90 transition-all">
+                  <FaGithub role="img" className="text-2xl antialiased" />
+                  Github
+                </button>
+              </NextLink>
 
-              <button className="bg-dark-800 py-4 px-12 rounded-md text-md w-full uppercase tracking-normal flex justify-center items-center gap-2">
-                <FaGoogle role="img" className="text-2xl" />
-                Google
-              </button>
+              <NextLink href="/home">
+                <button className="bg-dark-700 py-4 px-12 rounded-md text-md w-full uppercase tracking-normal flex justify-center items-center shadow-md gap-4 hover:brightness-90 transition-all">
+                  <FaGoogle role="img" className="text-2xl antialiased" />
+                  Google
+                </button>
+              </NextLink>
             </div>
           </div>
         </div>

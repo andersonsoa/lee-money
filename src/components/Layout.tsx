@@ -1,38 +1,25 @@
-import { Logo } from "./Logo";
+import { FaHome, FaAppStore } from "react-icons/fa";
+import { Header } from "./Header";
+import { NavLink } from "./Sidebar/NavLink";
 
 export const Layout: React.FC = ({ children }) => {
   return (
-    <section className="flex h-screen overflow-hidden max-w-7xl w-full mx-auto pt-20 pb-6 px-4 relative">
-      <header className="absolute left-0 right-0 top-0 h-20 flex items-center justify-between px-4">
-        <Logo size="text-lg" innerSize="text-2xl" />
+    <section className="grid grid-cols-12 grid-rows-[5rem] gap-y-4 gap-x-12 h-screen overflow-hidden px-4 max-w-7xl w-full mx-auto">
+      <Header />
 
-        <div className="flex items-center gap-4">
-          <div className="h-10 w-10 rounded-full bg-slate-800" />
-          <div className="flex-1">
-            <p>Anderson S.</p>
-            <a className="text-xs cursor-pointer text-gray-400">Sair</a>
-          </div>
-        </div>
-      </header>
-      <aside className="max-w-xs w-full">
+      <aside className="h-full col-span-3 md:block hidden">
         <nav>
-          <ul>
-            <li>
-              <a>Home</a>
-            </li>
-            <li>
-              <a>Dashboard</a>
-            </li>
-            <li>
-              <a>Gráficos</a>
-            </li>
-            <li>
-              <a>Cadastros</a>
-            </li>
+          <ul className="space-y-2">
+            <NavLink Icon={FaHome} href="/home">
+              Home
+            </NavLink>
+            <NavLink Icon={FaAppStore} href="/dashboard">
+              Dashboard
+            </NavLink>
           </ul>
         </nav>
       </aside>
-      <main className="w-full overflow-x-auto scrollbar-hide">{children}</main>
+      <main className="h-full md:col-span-9 col-span-12 overflow-x-auto scrollbar-hide">{children}</main>
     </section>
   );
 };

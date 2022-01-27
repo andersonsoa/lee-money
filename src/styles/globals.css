@@ -4,6 +4,6 @@
 
 @layer base {
   body {
-    @apply bg-gradient-to-br from-dark-900 to-dark-800 text-gray-200 font-poppins;
+    @apply from-dark-900 to-dark-800 font-poppins bg-gradient-to-br text-gray-50;
   }
 }

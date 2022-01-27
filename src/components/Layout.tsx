@@ -1,25 +1,28 @@
-import { FaHome, FaAppStore } from "react-icons/fa";
+import { useRouter } from "next/router";
+import { RiAppsFill, RiHome3Fill } from "react-icons/ri";
 import { Header } from "./Header";
-import { NavLink } from "./Sidebar/NavLink";
+import { NavLink } from "./sidebar/NavLink";
 
 export const Layout: React.FC = ({ children }) => {
+  const { asPath } = useRouter();
+
   return (
-    <section className="grid grid-cols-12 grid-rows-[5rem] gap-y-4 gap-x-12 h-screen overflow-hidden px-4 max-w-7xl w-full mx-auto">
+    <section className="mx-auto grid h-screen w-full max-w-7xl grid-cols-12 grid-rows-[5rem] gap-y-4 gap-x-12 overflow-hidden px-4">
       <Header />
 
-      <aside className="h-full col-span-3 md:block hidden">
+      <aside className="col-span-2 hidden h-full md:block">
         <nav>
           <ul className="space-y-2">
-            <NavLink Icon={FaHome} href="/home">
+            <NavLink Icon={RiHome3Fill} href="/home" active={asPath === "/home"}>
               Home
             </NavLink>
-            <NavLink Icon={FaAppStore} href="/dashboard">
+            <NavLink Icon={RiAppsFill} href="/dashboard" active={asPath === "/dashboard"}>
               Dashboard
             </NavLink>
           </ul>
         </nav>
       </aside>
-      <main className="h-full md:col-span-9 col-span-12 overflow-x-auto scrollbar-hide">{children}</main>
+      <main className="scrollbar-hide col-span-12 h-full overflow-x-auto md:col-span-10">{children}</main>
     </section>
   );
 };

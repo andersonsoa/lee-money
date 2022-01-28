@@ -9,137 +9,49 @@ const Dashboard: NextPage = () => {
     <Layout>
       <PageMotion>
         <div className="grid max-h-80 grid-cols-12 gap-4 pb-4">
-          {/* ultimas compras */}
-          <div className="col-span-12 row-span-2 md:col-span-7 ">
-            <Card title="Ultimas Compras">
-              <table className="mt-2 table w-full">
-                <thead>
-                  <tr className="text-sm text-gray-400">
-                    <th className="p-2">#</th>
-                    <th className="p-2 text-left" role="columnheader">
-                      Descrição
-                    </th>
-                    <th className="p-2 text-left" role="columnheader">
-                      Valor
-                    </th>
-                    <th className="p-2 text-left" role="columnheader">
-                      Data
-                    </th>
-                  </tr>
-                </thead>
-
-                <tbody className="text-xs">
-                  <tr className="">
-                    <td className="whitespace-nowrap px-2" align="center">
-                      <FaEye className="cursor-pointer transition-colors hover:text-fuchsia-600" />
-                    </td>
-                    <td className="whitespace-nowrap px-2">Aluguel</td>
-                    <td className="whitespace-nowrap px-2">R$ 1.000,00</td>
-                    <td className="whitespace-nowrap px-2">01/01/2020</td>
-                  </tr>
-                  <tr className="">
-                    <td className="whitespace-nowrap px-2" align="center">
-                      <FaEye className="cursor-pointer transition-colors hover:text-fuchsia-600" />
-                    </td>
-                    <td className="whitespace-nowrap px-2">Luz</td>
-                    <td className="whitespace-nowrap px-2">R$ 100,00</td>
-                    <td className="whitespace-nowrap px-2">01/01/2020</td>
-                  </tr>
-                  <tr className="">
-                    <td className="whitespace-nowrap px-2" align="center">
-                      <FaEye className="cursor-pointer transition-colors hover:text-fuchsia-600" />
-                    </td>
-                    <td className="whitespace-nowrap px-2">Internet</td>
-                    <td className="whitespace-nowrap px-2">R$ 100,00</td>
-                    <td className="whitespace-nowrap px-2">01/01/2020</td>
-                  </tr>
-                  <tr className="">
-                    <td className="whitespace-nowrap px-2" align="center">
-                      <FaEye className="cursor-pointer transition-colors hover:text-fuchsia-600" />
-                    </td>
-                    <td className="whitespace-nowrap px-2">Telefone</td>
-                    <td className="whitespace-nowrap px-2">R$ 100,00</td>
-                    <td className="whitespace-nowrap px-2">01/01/2020</td>
-                  </tr>
-                </tbody>
-              </table>
-            </Card>
+          <div className="col-span-12 flex justify-end">
+            <button className="rounded-md bg-fuchsia-800 px-4 py-2 text-sm shadow-lg transition-all hover:brightness-125">Adicionar</button>
           </div>
+          <div className="col-span-12">
+            <table className="mt-2 table w-full">
+              <thead>
+                <tr className="text-sm text-gray-400">
+                  <th className="p-2">#</th>
+                  <th className="whitespace-nowrap p-2 text-left" role="columnheader">
+                    Descrição
+                  </th>
+                  <th className="whitespace-nowrap p-2 text-left" role="columnheader">
+                    Valor
+                  </th>
+                  <th className="whitespace-nowrap p-2 text-left" role="columnheader">
+                    Data
+                  </th>
+                  <th className="whitespace-nowrap p-2 text-left" role="columnheader">
+                    Tipo de Gasto
+                  </th>
+                  <th className="whitespace-nowrap p-2 text-left" role="columnheader">
+                    Forma de Pagamento
+                  </th>
+                </tr>
+              </thead>
 
-          {/* metodo de pagamento */}
-          <div className="col-span-5 hidden md:block">
-            <Card title="Totais por Metodo de Pagamento">
-              <table className="mt-2 table w-full">
-                <thead>
-                  <tr className="text-sm text-gray-400">
-                    <th className="p-2">#</th>
-                    <th className="p-2 text-left" role="columnheader">
-                      Descrição
-                    </th>
-                    <th className="p-2 text-left" role="columnheader">
-                      Valor
-                    </th>
-                  </tr>
-                </thead>
-
-                <tbody className="text-xs">
-                  {Array.from({ length: 3 }).map((_, idx) => {
-                    return (
-                      <tr key={idx} className="">
-                        <td className="whitespace-nowrap px-2" align="center">
-                          <FaEye className="cursor-pointer transition-colors hover:text-fuchsia-600" />
-                        </td>
-                        <td className="whitespace-nowrap px-2">Aluguel</td>
-                        <td className="whitespace-nowrap px-2">R$ 1.000,00</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </Card>
-          </div>
-
-          {/* categoria */}
-          <div className="col-span-5 hidden md:block">
-            <Card title="Total por Categoria">
-              <table className="mt-2 table w-full">
-                <thead>
-                  <tr className="text-sm text-gray-400">
-                    <th className="p-2">#</th>
-                    <th className="p-2 text-left" role="columnheader">
-                      Descrição
-                    </th>
-                    <th className="p-2 text-left" role="columnheader">
-                      Valor
-                    </th>
-                  </tr>
-                </thead>
-
-                <tbody className="text-xs">
-                  <tr className="">
-                    <td className="whitespace-nowrap px-2" align="center">
-                      <FaEye className="cursor-pointer transition-colors hover:text-fuchsia-600" />
-                    </td>
-                    <td className="whitespace-nowrap px-2">Aluguel</td>
-                    <td className="whitespace-nowrap px-2">R$ 1.000,00</td>
-                  </tr>
-                  <tr className="">
-                    <td className="whitespace-nowrap px-2" align="center">
-                      <FaEye className="cursor-pointer transition-colors hover:text-fuchsia-600" />
-                    </td>
-                    <td className="whitespace-nowrap px-2">Luz</td>
-                    <td className="whitespace-nowrap px-2">R$ 100,00</td>
-                  </tr>
-                  <tr className="">
-                    <td className="whitespace-nowrap px-2" align="center">
-                      <FaEye className="cursor-pointer transition-colors hover:text-fuchsia-600" />
-                    </td>
-                    <td className="whitespace-nowrap px-2">Aluguel</td>
-                    <td className="whitespace-nowrap px-2">R$ 1.000,00</td>
-                  </tr>
-                </tbody>
-              </table>
-            </Card>
+              <tbody className="text-md">
+                <tr className="hover:bg-dark-800 rounded-lg transition-all hover:shadow-lg">
+                  <td className="whitespace-nowrap p-2 align-middle" align="center">
+                    <FaEye className="cursor-pointer transition-colors hover:text-fuchsia-600" />
+                  </td>
+                  <td className="whitespace-nowrap p-2 align-middle">Aluguel</td>
+                  <td className="whitespace-nowrap p-2 align-middle">R$ 1.000,00</td>
+                  <td className="whitespace-nowrap p-2 align-middle">01/01/2020</td>
+                  <td className="whitespace-nowrap p-2 align-middle">
+                    <div className="max-w-fit rounded-full bg-pink-700 px-4 py-1 text-center align-middle text-sm">Moradia</div>
+                  </td>
+                  <td className="whitespace-nowrap p-2">
+                    <div className="max-w-fit rounded-full bg-green-800 px-4 py-1 text-center align-middle text-sm">Dinheiro</div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </PageMotion>

@@ -1,18 +1,21 @@
 import NextLink from "next/link";
 import { motion } from "framer-motion";
 
-import { RiMoneyCnyCircleFill } from "react-icons/ri";
-
 interface NavLinkProps {
+  Icon: React.ElementType;
   href: string;
   active?: boolean;
-  Icon?: React.ElementType;
 }
-export const NavLink: React.FC<NavLinkProps> = ({ Icon, active = false, href, children }) => {
+
+export const NavLink: React.FC<NavLinkProps> = ({ Icon, href, children, active = false }) => {
   const variants = {
     initial: { x: -20, opacity: 0 },
     animate: { x: 0, opacity: 1 },
+    exit: { x: 0, opacity: 0, scale: 3 },
   };
+
+  const iconClasses = active ? "text-fuchsia-500" : "transition-all group-hover:text-fuchsia-500";
+  const childrenClasses = active ? "flex-1 text-gray-100" : "flex-1 text-gray-400 group-hover:text-gray-100";
 
   return (
     <li className="group">
@@ -20,16 +23,18 @@ export const NavLink: React.FC<NavLinkProps> = ({ Icon, active = false, href, ch
         <motion.a
           initial="initial"
           animate="initial"
+          exit="exit"
+          whileFocus="animate"
           whileHover="animate"
-          className="text-sm text-gray-400 flex items-center px-2 space-x-4 cursor-pointer group-hover:text-gray-100"
+          className="flex cursor-pointer items-center space-x-4 px-2 text-sm"
         >
-          <div className="bg-dark-800 rounded-md grid place-items-center transition-all w-8 h-8 group-hover:bg-dark-700">
-            {Icon && <Icon className="group-hover:text-fuchsia-500 transition-all" />}
+          <div className="bg-dark-800 group-hover:bg-dark-700 grid h-8 w-8 place-items-center rounded-md transition-all">
+            <Icon className={iconClasses} />
           </div>
 
-          <span className="flex-1">{children}</span>
+          <span className={childrenClasses}>{children}</span>
 
-          <motion.div variants={variants} initial={active ? "animate" : undefined} className="w-2 h-2 rounded-full bg-fuchsia-500" />
+          <motion.div variants={variants} className="h-2 w-2 rounded-full bg-fuchsia-500" />
         </motion.a>
       </NextLink>
     </li>

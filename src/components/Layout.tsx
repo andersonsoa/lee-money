@@ -7,7 +7,7 @@ export const Layout: React.FC = ({ children }) => {
   const { asPath } = useRouter();
 
   return (
-    <section className="mx-auto grid h-screen w-full max-w-7xl grid-cols-12 grid-rows-[5rem] gap-y-4 gap-x-12 overflow-hidden px-4">
+    <section className="mx-auto grid h-screen w-full max-w-7xl grid-cols-12 grid-rows-[5rem] gap-y-4 gap-x-4 overflow-hidden px-4">
       <Header />
 
       <aside className="col-span-2 hidden h-full md:block">

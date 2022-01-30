@@ -34,7 +34,7 @@ export const NavLink: React.FC<NavLinkProps> = ({ Icon, href, children, active =
 
           <span className={childrenClasses}>{children}</span>
 
-          <motion.div variants={variants} className="h-2 w-2 rounded-full bg-fuchsia-500" />
+          <motion.div variants={variants} transition={{ duration: 0.2 }} className="h-2 w-2 rounded-full bg-fuchsia-500" />
         </motion.a>
       </NextLink>
     </li>

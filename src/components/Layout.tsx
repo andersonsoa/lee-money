@@ -2,6 +2,8 @@ import { useRouter } from "next/router";
 import { RiAppsFill, RiHome3Fill } from "react-icons/ri";
 import { Header } from "./Header";
 import { NavLink } from "./sidebar/NavLink";
+import { NavLinkGroup } from "./sidebar/NavLinkGroup";
+import { NavLinkSimple } from "./sidebar/NavLinkSimple";
 
 export const Layout: React.FC = ({ children }) => {
   const { asPath } = useRouter();
@@ -19,6 +21,12 @@ export const Layout: React.FC = ({ children }) => {
             <NavLink Icon={RiAppsFill} href="/dashboard" active={asPath === "/dashboard"}>
               Dashboard
             </NavLink>
+
+            <NavLinkGroup title="Configurações">
+              <NavLinkSimple path="/settings/periods">Periodos</NavLinkSimple>
+              <NavLinkSimple path="/settings/cards">Cartões</NavLinkSimple>
+              <NavLinkSimple path="/settings/tags">Tipos de Gasto</NavLinkSimple>
+            </NavLinkGroup>
           </ul>
         </nav>
       </aside>

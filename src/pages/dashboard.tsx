@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import { FaEye } from "react-icons/fa";
-import { Card } from "../components/Card";
 import { Layout } from "../components/Layout";
 import { PageMotion } from "../components/motion/PageMotion";
 

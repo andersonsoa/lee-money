@@ -1,3 +1,4 @@
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { prismaClient } from "../../utils/db/prisma";
 import { createRouter } from "../createRouter";
@@ -70,6 +71,16 @@ export const periods = createRouter()
     }),
     async resolve({ input }) {
       const { id } = input;
+
+      const spents = await prismaClient.spent.findMany({
+        where: {
+          period_id: id,
+        },
+      });
+
+      if (spents.length > 0) {
+        throw new TRPCError({ message: "Este periodo está vinculado a algum gasto", code: "NOT_FOUND" });
+      }
 
       const period = await prismaClient.period.delete({
         where: {

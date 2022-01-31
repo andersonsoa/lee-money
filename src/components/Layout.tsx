@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { RiAppsFill, RiHome3Fill } from "react-icons/ri";
+import { Toaster } from "react-hot-toast";
 import { Header } from "./Header";
 import { NavLink } from "./sidebar/NavLink";
 import { NavLinkGroup } from "./sidebar/NavLinkGroup";
@@ -10,6 +11,7 @@ export const Layout: React.FC = ({ children }) => {
 
   return (
     <section className="mx-auto grid h-screen w-full max-w-7xl grid-cols-12 grid-rows-[5rem] gap-y-4 gap-x-4 overflow-hidden px-4">
+      <Toaster />
       <Header />
 
       <aside className="col-span-2 hidden h-full md:block">

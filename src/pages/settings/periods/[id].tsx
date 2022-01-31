@@ -6,6 +6,7 @@ import { Layout } from "../../../components/Layout";
 import { PageMotion } from "../../../components/motion/PageMotion";
 import { Spinner } from "../../../components/Spinner";
 import { trpc } from "../../../utils/trpc";
+import { toast } from "react-hot-toast";
 
 interface EditProps {
   id: string;
@@ -13,17 +14,29 @@ interface EditProps {
 
 const Edit: NextPage<EditProps> = ({ id }) => {
   const { data, isLoading } = trpc.useQuery(["period-get-by-id", { id }], { cacheTime: 0 });
-  const updatePeriod = trpc.useMutation(["period-update"]);
-  const deletePeriod = trpc.useMutation(["period-delete"]);
+  const updatePeriod = trpc.useMutation(["period-update"], {
+    onSuccess: () => {
+      toast.success("Período atualizado com sucesso!");
+      Router.push("/settings/periods");
+    },
+  });
+
+  const deletePeriod = trpc.useMutation(["period-delete"], {
+    onSuccess: (period) => {
+      toast.success(`Período <b>${period.name}</b> excluído com sucesso!`);
+      Router.push("/settings/periods");
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
 
   const onSubmit = (data: Period) => {
-    updatePeriod.mutateAsync(data).then(() => Router.push("/settings/periods"));
+    updatePeriod.mutate(data);
   };
 
   const onDelete = (id: string) => {
-    deletePeriod.mutateAsync({ id }).then(() => {
-      Router.push("/settings/periods");
-    });
+    deletePeriod.mutate({ id });
   };
 
   return (

@@ -47,6 +47,7 @@ export const TagForm: React.FC<TagFormProps> = ({ onSubmit, onDelete, initialVal
         <div>
           {onDelete && (
             <button
+              type="button"
               className="bg-gray-900/15 hover:bg-dark-800 cursor-pointer rounded-md px-2 py-2 text-sm font-bold uppercase text-red-500 transition-colors hover:shadow-lg"
               onClick={onDelete}
             >

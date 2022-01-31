@@ -1,7 +1,8 @@
 import { Period } from "@prisma/client";
-import NextLink from "next/link";
 import { useForm } from "react-hook-form";
-import { TextButton } from "../TextButton";
+import { SolidButton } from "../buttons/SolidButton";
+import { TextButton } from "../buttons/TextButton";
+import { SolidLink } from "../links/SolidLink";
 
 interface PeriodFormProps {
   onSubmit: (data: any) => void;
@@ -54,18 +55,20 @@ export const PeriodForm: React.FC<PeriodFormProps> = ({ onSubmit, onDelete, init
       <div className="flex items-center justify-between">
         <div>
           {onDelete && (
-            <TextButton type="button" onClick={onDelete}>
+            <TextButton type="button" variant="danger" onClick={onDelete}>
               Remover
             </TextButton>
           )}
         </div>
 
         <div className="space-x-4">
-          <button className="rounded bg-green-600 px-4 py-2 text-sm text-gray-100 hover:brightness-110">Salvar</button>
+          <SolidButton type="submit" variant="success" size="md">
+            Salvar
+          </SolidButton>
 
-          <NextLink href="/settings/periods">
-            <a className="cursor-pointer rounded bg-red-600 px-4 py-2 text-sm text-gray-100 hover:brightness-110">Cancelar</a>
-          </NextLink>
+          <SolidLink href="/settings/periods" size="md" variant="danger">
+            Cancelar
+          </SolidLink>
         </div>
       </div>
     </form>

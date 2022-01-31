@@ -1,24 +1,22 @@
-import NextLink from "next/link";
 import type { NextPage } from "next";
 import { Layout } from "../../../components/Layout";
+import { TextLink } from "../../../components/links/TextLink";
 import { PageMotion } from "../../../components/motion/PageMotion";
 import { Spinner } from "../../../components/Spinner";
 import { trpc } from "../../../utils/trpc";
 
 const Cards: NextPage = () => {
-  const { data, isLoading, isFetching } = trpc.useQuery(["card-get-all"]);
+  const { data, isLoading, isFetching } = trpc.useQuery(["payment-get-all"]);
 
   return (
     <Layout>
       <PageMotion>
-        <h1 className="text-4xl">Cartões</h1>
+        <h1 className="text-4xl">Métodos de Pagamento</h1>
 
         <div className="flex max-w-xl items-center justify-between py-10">
-          <NextLink href="/settings/cards/create">
-            <a className="bg-gray-900/15 hover:bg-dark-800 cursor-pointer rounded-md px-4 py-2 text-sm font-bold uppercase text-green-500 transition-colors hover:shadow-lg">
-              Criar
-            </a>
-          </NextLink>
+          <TextLink href="/settings/payments/create" variant="success">
+            Criar
+          </TextLink>
 
           {isFetching && !isLoading && <Spinner size={4} />}
         </div>
@@ -42,22 +40,20 @@ const Cards: NextPage = () => {
               </thead>
 
               <tbody>
-                {data?.map((card, idx) => {
+                {data?.map((payment, idx) => {
                   return (
-                    <tr key={card.id} className="rounded-md from-fuchsia-800/25 to-transparent hover:bg-gradient-to-r">
+                    <tr key={payment.id} className="rounded-md from-fuchsia-800/25 to-transparent hover:bg-gradient-to-r">
                       <td className="p-2 text-center font-bold">{idx + 1}</td>
-                      <td className="p-2 text-left">{card.name}</td>
-                      <td className="p-2 text-left">{card.limit}</td>
+                      <td className="p-2 text-left">{payment.name}</td>
+                      <td className="p-2 text-left">{payment.limit}</td>
                       <td className="items-center p-2 text-center">
-                        <div className={`mx-auto h-3 w-3 rounded-full`} style={{ backgroundColor: card.color || "#aaa" }} />
+                        <div className={`mx-auto h-3 w-3 rounded-full`} style={{ backgroundColor: payment.color || "#aaa" }} />
                       </td>
-                      <td className="p-2 text-center">{new Date(card.created_at).toLocaleDateString()}</td>
+                      <td className="p-2 text-center">{new Date(payment.created_at).toLocaleDateString()}</td>
                       <td className="space-x-4 p-2 text-right">
-                        <NextLink href={`/settings/cards/${card.id}`}>
-                          <a className="bg-gray-900/15 hover:bg-dark-800 cursor-pointer rounded-md px-2 py-1 text-sm font-bold uppercase text-yellow-500 transition-colors hover:shadow-lg">
-                            Editar
-                          </a>
-                        </NextLink>
+                        <TextLink href={`/settings/payments/${payment.id}`} size="sm" variant="warning">
+                          Editar
+                        </TextLink>
                       </td>
                     </tr>
                   );

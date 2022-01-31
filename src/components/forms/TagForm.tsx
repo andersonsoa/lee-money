@@ -3,6 +3,9 @@ import NextLink from "next/link";
 import { useState } from "react";
 import { SliderPicker } from "react-color";
 import { useForm } from "react-hook-form";
+import { SolidButton } from "../buttons/SolidButton";
+import { TextButton } from "../buttons/TextButton";
+import { TextLink } from "../links/TextLink";
 
 interface TagFormProps {
   onSubmit: (data: any) => void;
@@ -46,22 +49,18 @@ export const TagForm: React.FC<TagFormProps> = ({ onSubmit, onDelete, initialVal
       <div className="flex items-center justify-between">
         <div>
           {onDelete && (
-            <button
-              type="button"
-              className="bg-gray-900/15 hover:bg-dark-800 cursor-pointer rounded-md px-2 py-2 text-sm font-bold uppercase text-red-500 transition-colors hover:shadow-lg"
-              onClick={onDelete}
-            >
+            <TextButton type="button" variant="danger" onClick={onDelete}>
               Remover
-            </button>
+            </TextButton>
           )}
         </div>
 
         <div className="space-x-4">
-          <button className="rounded bg-green-600 px-4 py-2 text-sm text-gray-100 hover:brightness-110">Salvar</button>
+          <SolidButton type="submit" variant="success">
+            Salvar
+          </SolidButton>
 
-          <NextLink href="/settings/tags">
-            <a className="cursor-pointer rounded bg-red-600 px-4 py-2 text-sm text-gray-100 hover:brightness-110">Cancelar</a>
-          </NextLink>
+          <TextLink href="/settings/tags">Cancelar</TextLink>
         </div>
       </div>
     </form>

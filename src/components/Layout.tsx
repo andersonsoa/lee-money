@@ -14,7 +14,7 @@ export const Layout: React.FC = ({ children }) => {
       <Toaster />
       <Header />
 
-      <aside className="col-span-2 hidden h-full md:block">
+      <aside className="col-span-3 hidden h-full md:block">
         <nav>
           <ul className="space-y-2">
             <NavLink Icon={RiHome3Fill} href="/home" active={asPath === "/home"}>
@@ -26,13 +26,13 @@ export const Layout: React.FC = ({ children }) => {
 
             <NavLinkGroup title="Configurações">
               <NavLinkSimple path="/settings/periods">Periodos</NavLinkSimple>
-              <NavLinkSimple path="/settings/cards">Cartões</NavLinkSimple>
+              <NavLinkSimple path="/settings/payments">Métodos de Pagamento</NavLinkSimple>
               <NavLinkSimple path="/settings/tags">Tipos de Gasto</NavLinkSimple>
             </NavLinkGroup>
           </ul>
         </nav>
       </aside>
-      <main className="scrollbar-hide col-span-12 h-full overflow-x-auto md:col-span-10">{children}</main>
+      <main className="scrollbar-hide col-span-12 h-full overflow-x-auto md:col-span-9">{children}</main>
     </section>
   );
 };

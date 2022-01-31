@@ -2,12 +2,12 @@ import { z } from "zod";
 import { prismaClient } from "../../utils/db/prisma";
 import { createRouter } from "../createRouter";
 
-export const cards = createRouter()
+export const payment = createRouter()
   .query("-get-all", {
     async resolve() {
-      const cards = await prismaClient.card.findMany();
+      const payments = await prismaClient.payment.findMany();
 
-      return cards;
+      return payments;
     },
   })
   .query("-get-by-id", {
@@ -17,25 +17,25 @@ export const cards = createRouter()
     async resolve({ input }) {
       const { id } = input;
 
-      const card = await prismaClient.card.findUnique({
+      const payment = await prismaClient.payment.findUnique({
         where: {
           id,
         },
       });
 
-      return card;
+      return payment;
     },
   })
   .mutation("-create", {
     input: z.object({
       name: z.string(),
-      limit: z.number(),
+      limit: z.number().nullable(),
       color: z.string(),
     }),
     async resolve({ input }) {
       const { name, limit, color } = input;
 
-      const card = await prismaClient.card.create({
+      const payment = await prismaClient.payment.create({
         data: {
           name,
           limit,
@@ -43,20 +43,20 @@ export const cards = createRouter()
         },
       });
 
-      return card;
+      return payment;
     },
   })
   .mutation("-update", {
     input: z.object({
       id: z.string(),
       name: z.string(),
-      limit: z.number(),
+      limit: z.number().nullable(),
       color: z.string(),
     }),
     async resolve({ input }) {
       const { id, name, limit, color } = input;
 
-      const card = await prismaClient.card.update({
+      const payment = await prismaClient.payment.update({
         where: {
           id: id,
         },
@@ -68,7 +68,7 @@ export const cards = createRouter()
         },
       });
 
-      return card;
+      return payment;
     },
   })
   .mutation("-delete", {
@@ -78,12 +78,12 @@ export const cards = createRouter()
     async resolve({ input }) {
       const { id } = input;
 
-      const card = await prismaClient.card.delete({
+      const payment = await prismaClient.payment.delete({
         where: {
           id,
         },
       });
 
-      return card;
+      return payment;
     },
   });

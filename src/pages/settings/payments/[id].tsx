@@ -1,7 +1,7 @@
-import { Card } from "@prisma/client";
+import { Payment } from "@prisma/client";
 import type { GetServerSideProps, NextPage } from "next";
 import Router from "next/router";
-import { CardForm } from "../../../components/forms/CardForm";
+import { PaymentForm } from "../../../components/forms/PaymentForm";
 import { Layout } from "../../../components/Layout";
 import { PageMotion } from "../../../components/motion/PageMotion";
 import { Spinner } from "../../../components/Spinner";
@@ -12,18 +12,18 @@ interface EditProps {
 }
 
 const Edit: NextPage<EditProps> = ({ id }) => {
-  const { data, isLoading } = trpc.useQuery(["card-get-by-id", { id }], { cacheTime: 0 });
-  const updateCard = trpc.useMutation(["card-update"]);
-  const deleteCard = trpc.useMutation(["card-delete"]);
+  const { data, isLoading } = trpc.useQuery(["payment-get-by-id", { id }], { cacheTime: 0 });
+  const updatePayment = trpc.useMutation(["payment-update"]);
+  const deletePayment = trpc.useMutation(["payment-delete"]);
 
-  const onSubmit = (data: Card) => {
+  const onSubmit = (data: Payment) => {
     data.limit = Number(data.limit);
-    updateCard.mutateAsync(data).then(() => Router.push("/settings/cards"));
+    updatePayment.mutateAsync(data).then(() => Router.push("/settings/payments"));
   };
 
   const onDelete = (id: string) => {
-    deleteCard.mutateAsync({ id }).then(() => {
-      Router.push("/settings/cards");
+    deletePayment.mutateAsync({ id }).then(() => {
+      Router.push("/settings/payments");
     });
   };
 
@@ -31,14 +31,14 @@ const Edit: NextPage<EditProps> = ({ id }) => {
     <Layout>
       <PageMotion>
         <div>
-          <h1 className="text-3xl">Cartões - Detalhes</h1>
+          <h1 className="text-3xl">Método de Pagamento {data && `- ${data.name}`}</h1>
 
           {isLoading && !data ? (
             <div className="grid place-items-center pt-20">
               <Spinner />
             </div>
           ) : (
-            <CardForm onSubmit={onSubmit} onDelete={() => onDelete(id)} initialValues={data!} />
+            <PaymentForm onSubmit={onSubmit} onDelete={() => onDelete(id)} initialValues={data!} />
           )}
         </div>
       </PageMotion>

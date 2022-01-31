@@ -23,17 +23,17 @@ model Period {
   @@map("periods")
 }
 
-model Card {
+model Payment {
   id         String    @id @default(uuid())
   name       String    @unique()
-  limit      Int
+  limit      Int?
   color      String
   created_at DateTime  @default(now())
   updated_at DateTime?
 
   spents Spent[]
 
-  @@map("cards")
+  @@map("payments")
 }
 
 model Tag {
@@ -51,14 +51,14 @@ model Tag {
 model Spent {
   id         String    @id @default(uuid())
   period_id  String
-  card_id    String
+  payment_id String
   title      String
   amount     Int
   created_at DateTime  @default(now())
   updated_at DateTime?
 
   period     Period     @relation(fields: [period_id], references: [id], onUpdate: NoAction)
-  card       Card       @relation(fields: [card_id], references: [id], onUpdate: NoAction)
+  payment    Payment    @relation(fields: [payment_id], references: [id], onUpdate: NoAction)
   spent_tags SpentTag[]
 
   @@map("spents")

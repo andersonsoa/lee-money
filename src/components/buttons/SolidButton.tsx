@@ -19,12 +19,12 @@ export const SolidButton: React.FC<SolidButtonProps> = ({
   variant = "primary",
 }) => {
   const classes = {
-    base: "cursor-pointer rounded-md uppercase transition-colors hover:shadow-lg",
+    base: "grid place-items-center cursor-pointer rounded-md transition-colors hover:shadow-lg hover:brightness-125",
     variants: {
-      primary: "bg-blue-600 hover:bg-blue-700 text-gray-100",
-      success: "bg-green-600 hover:bg-green-700 text-gray-100",
-      warning: "bg-yellow-600 hover:bg-yellow-700 text-gray-100",
-      danger: "bg-red-600 hover:bg-red-700 text-gray-100",
+      primary: "bg-fuchsia-800 text-gray-100",
+      success: "bg-green-700 text-gray-100",
+      warning: "bg-yellow-700 text-gray-100",
+      danger: "bg-red-700 text-gray-100",
     },
     sizes: {
       sm: "px-2 py-1 text-xs",

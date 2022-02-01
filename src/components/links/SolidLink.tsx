@@ -8,12 +8,12 @@ interface SolidLinkProps {
 
 export const SolidLink: React.FC<SolidLinkProps> = ({ children, href, size = "md", variant = "primary" }) => {
   const classes = {
-    base: "cursor-pointer rounded-md uppercase transition-colors hover:shadow-lg",
+    base: "grid place-items-center cursor-pointer rounded-md transition-colors hover:shadow-lg hover:brightness-125",
     variants: {
-      primary: "bg-blue-500 hover:bg-blue-700 text-gray-100",
-      success: "bg-green-500 hover:bg-green-700 text-gray-100",
-      warning: "bg-yellow-500 hover:bg-yellow-700 text-gray-100",
-      danger: "bg-red-500 hover:bg-red-700 text-gray-100",
+      primary: "bg-fuchsia-800 text-gray-100",
+      success: "bg-green-700 text-gray-100",
+      warning: "bg-yellow-700 text-gray-100",
+      danger: "bg-red-700 text-gray-100",
     },
     sizes: {
       sm: "px-2 py-1 text-xs",

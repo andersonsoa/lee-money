@@ -2,7 +2,9 @@ import { Payment } from "@prisma/client";
 import { useState } from "react";
 import { SliderPicker } from "react-color";
 import { useForm } from "react-hook-form";
+import { SolidButton } from "../buttons/SolidButton";
 import { TextButton } from "../buttons/TextButton";
+import { SolidLink } from "../links/SolidLink";
 import { TextLink } from "../links/TextLink";
 
 interface PaymentFormProps {
@@ -64,10 +66,14 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit, onDelete, in
           )}
         </div>
 
-        <div className="space-x-4">
-          <button className="rounded bg-green-600 px-4 py-2 text-sm text-gray-100 hover:brightness-110">Salvar</button>
+        <div className="flex space-x-4">
+          <SolidButton type="submit" variant="success">
+            Salvar
+          </SolidButton>
 
-          <TextLink href="/settings/payments">Cancelar</TextLink>
+          <SolidLink href="/settings/payments" variant="danger">
+            Cancelar
+          </SolidLink>
         </div>
       </div>
     </form>

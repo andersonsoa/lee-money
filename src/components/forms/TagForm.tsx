@@ -5,6 +5,7 @@ import { SliderPicker } from "react-color";
 import { useForm } from "react-hook-form";
 import { SolidButton } from "../buttons/SolidButton";
 import { TextButton } from "../buttons/TextButton";
+import { SolidLink } from "../links/SolidLink";
 import { TextLink } from "../links/TextLink";
 
 interface TagFormProps {
@@ -55,12 +56,14 @@ export const TagForm: React.FC<TagFormProps> = ({ onSubmit, onDelete, initialVal
           )}
         </div>
 
-        <div className="space-x-4">
+        <div className="flex space-x-4">
           <SolidButton type="submit" variant="success">
             Salvar
           </SolidButton>
 
-          <TextLink href="/settings/tags">Cancelar</TextLink>
+          <SolidLink variant="danger" href="/settings/tags">
+            Cancelar
+          </SolidLink>
         </div>
       </div>
     </form>

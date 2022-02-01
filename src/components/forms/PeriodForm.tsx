@@ -61,7 +61,7 @@ export const PeriodForm: React.FC<PeriodFormProps> = ({ onSubmit, onDelete, init
           )}
         </div>
 
-        <div className="space-x-4">
+        <div className="flex space-x-4">
           <SolidButton type="submit" variant="success" size="md">
             Salvar
           </SolidButton>

@@ -10,8 +10,10 @@ const Create: NextPage = () => {
   const createPayment = trpc.useMutation(["payment-create"]);
 
   const onSubmit = (data: Payment) => {
-    data.limit = Number(data.limit);
-    createPayment.mutateAsync(data).then(() => Router.push("/settings/payments"));
+    data.limit = data.limit ? Number(data.limit) : null;
+    createPayment
+      .mutateAsync(data)
+      .then(() => Router.push("/settings/payments"));
   };
 
   return (

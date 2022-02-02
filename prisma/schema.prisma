@@ -16,7 +16,7 @@ model Period {
   start_date DateTime
   end_date   DateTime?
   created_at DateTime  @default(now())
-  updated_at DateTime?
+  updated_at DateTime? @updatedAt()
 
   spents Spent[]
 
@@ -29,7 +29,7 @@ model Payment {
   limit      Int?
   color      String
   created_at DateTime  @default(now())
-  updated_at DateTime?
+  updated_at DateTime? @updatedAt()
 
   spents Spent[]
 
@@ -43,7 +43,7 @@ model Tag {
   created_at DateTime  @default(now())
   updated_at DateTime? @updatedAt()
 
-  spent_tags SpentTag[]
+  spent_tags Spent[]
 
   @@map("tags")
 }
@@ -52,28 +52,15 @@ model Spent {
   id         String    @id @default(uuid())
   period_id  String
   payment_id String
+  tag_id     String?
   title      String
   amount     Int
   created_at DateTime  @default(now())
-  updated_at DateTime?
+  updated_at DateTime? @updatedAt()
 
-  period     Period     @relation(fields: [period_id], references: [id], onUpdate: NoAction)
-  payment    Payment    @relation(fields: [payment_id], references: [id], onUpdate: NoAction)
-  spent_tags SpentTag[]
+  period  Period  @relation(fields: [period_id], references: [id], onUpdate: NoAction)
+  payment Payment @relation(fields: [payment_id], references: [id], onUpdate: NoAction)
+  tags    Tag?    @relation(fields: [tag_id], references: [id], onUpdate: NoAction)
 
   @@map("spents")
-}
-
-model SpentTag {
-  spent_id String
-  tag_id   String
-
-  created_at DateTime  @default(now())
-  updated_at DateTime?
-
-  spent Spent @relation(fields: [spent_id], references: [id], onUpdate: NoAction)
-  tag   Tag   @relation(fields: [tag_id], references: [id], onUpdate: NoAction)
-
-  @@id([spent_id, tag_id])
-  @@map("spent_tags")
 }

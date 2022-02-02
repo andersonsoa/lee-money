@@ -24,7 +24,7 @@ const Tag: NextPage = () => {
         </div>
 
         {isLoading ? (
-          <div className="grid place-items-center pt-20">
+          <div className="grid max-w-xl place-items-center pt-20">
             <Spinner />
           </div>
         ) : (
@@ -43,13 +43,21 @@ const Tag: NextPage = () => {
               <tbody>
                 {data?.map((tag, idx) => {
                   return (
-                    <tr key={tag.id} className="rounded-md from-fuchsia-800/25 to-transparent hover:bg-gradient-to-r">
+                    <tr
+                      key={tag.id}
+                      className="rounded-md from-fuchsia-800/25 to-transparent hover:bg-gradient-to-r"
+                    >
                       <td className="p-2 text-center font-bold">{idx + 1}</td>
                       <td className="p-2 text-left">{tag.name}</td>
                       <td className="items-center p-2 text-center">
-                        <div className={`mx-auto h-3 w-3 rounded-full`} style={{ backgroundColor: tag.color || "#aaa" }} />
+                        <div
+                          className={`mx-auto h-3 w-3 rounded-full`}
+                          style={{ backgroundColor: tag.color || "#aaa" }}
+                        />
                       </td>
-                      <td className="p-2 text-center">{new Date(tag.created_at).toLocaleDateString()}</td>
+                      <td className="p-2 text-center">
+                        {new Date(tag.created_at).toLocaleDateString()}
+                      </td>
                       <td className="space-x-4 p-2 text-right">
                         <NextLink href={`/settings/tags/${tag.id}`}>
                           <a className="bg-gray-900/15 hover:bg-dark-800 cursor-pointer rounded-md px-2 py-1 text-sm font-bold uppercase text-yellow-500 transition-colors hover:shadow-lg">

@@ -24,7 +24,7 @@ const Period: NextPage = () => {
         </div>
 
         {isLoading ? (
-          <div className="grid place-items-center pt-20">
+          <div className="grid max-w-xl place-items-center pt-20">
             <Spinner />
           </div>
         ) : (
@@ -43,11 +43,20 @@ const Period: NextPage = () => {
               <tbody>
                 {data?.map((period, idx) => {
                   return (
-                    <tr key={period.id} className="rounded-md from-fuchsia-800/25 to-transparent hover:bg-gradient-to-r">
+                    <tr
+                      key={period.id}
+                      className="rounded-md from-fuchsia-800/25 to-transparent hover:bg-gradient-to-r"
+                    >
                       <td className="p-2 text-center font-bold">{idx + 1}</td>
                       <td className="p-2 text-left">{period.name}</td>
-                      <td className="items-center p-2 text-center">{new Date(period.start_date).toLocaleDateString()}</td>
-                      <td className="p-2 text-center">{period.end_date ? new Date(period.end_date).toLocaleDateString() : ""}</td>
+                      <td className="items-center p-2 text-center">
+                        {new Date(period.start_date).toLocaleDateString()}
+                      </td>
+                      <td className="p-2 text-center">
+                        {period.end_date
+                          ? new Date(period.end_date).toLocaleDateString()
+                          : ""}
+                      </td>
                       <td className="space-x-4 p-2 text-right">
                         <NextLink href={`/settings/periods/${period.id}`}>
                           <a className="bg-gray-900/15 hover:bg-dark-800 cursor-pointer rounded-md px-2 py-1 text-sm font-bold uppercase text-yellow-500 transition-colors hover:shadow-lg">

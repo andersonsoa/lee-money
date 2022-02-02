@@ -3,6 +3,7 @@ import { Layout } from "../../../components/Layout";
 import { TextLink } from "../../../components/links/TextLink";
 import { PageMotion } from "../../../components/motion/PageMotion";
 import { Spinner } from "../../../components/Spinner";
+import { Format } from "../../../utils/formatter";
 import { trpc } from "../../../utils/trpc";
 
 const Cards: NextPage = () => {
@@ -22,7 +23,7 @@ const Cards: NextPage = () => {
         </div>
 
         {isLoading ? (
-          <div className="grid place-items-center pt-20">
+          <div className="grid max-w-xl place-items-center pt-20">
             <Spinner />
           </div>
         ) : (
@@ -42,16 +43,30 @@ const Cards: NextPage = () => {
               <tbody>
                 {data?.map((payment, idx) => {
                   return (
-                    <tr key={payment.id} className="rounded-md from-fuchsia-800/25 to-transparent hover:bg-gradient-to-r">
+                    <tr
+                      key={payment.id}
+                      className="rounded-md from-fuchsia-800/25 to-transparent hover:bg-gradient-to-r"
+                    >
                       <td className="p-2 text-center font-bold">{idx + 1}</td>
                       <td className="p-2 text-left">{payment.name}</td>
-                      <td className="p-2 text-left">{payment.limit}</td>
-                      <td className="items-center p-2 text-center">
-                        <div className={`mx-auto h-3 w-3 rounded-full`} style={{ backgroundColor: payment.color || "#aaa" }} />
+                      <td className="p-2 text-left">
+                        {payment.limit ? Format.number(payment.limit) : "∞"}
                       </td>
-                      <td className="p-2 text-center">{new Date(payment.created_at).toLocaleDateString()}</td>
+                      <td className="items-center p-2 text-center">
+                        <div
+                          className={`mx-auto h-3 w-3 rounded-full`}
+                          style={{ backgroundColor: payment.color || "#aaa" }}
+                        />
+                      </td>
+                      <td className="p-2 text-center">
+                        {new Date(payment.created_at).toLocaleDateString()}
+                      </td>
                       <td className="space-x-4 p-2 text-right">
-                        <TextLink href={`/settings/payments/${payment.id}`} size="sm" variant="warning">
+                        <TextLink
+                          href={`/settings/payments/${payment.id}`}
+                          size="sm"
+                          variant="warning"
+                        >
                           Editar
                         </TextLink>
                       </td>

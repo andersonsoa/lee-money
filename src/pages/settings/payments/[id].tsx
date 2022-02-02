@@ -1,6 +1,6 @@
-import { Payment } from "@prisma/client";
-import type { GetServerSideProps, NextPage } from "next";
 import Router from "next/router";
+import type { GetServerSideProps, NextPage } from "next";
+import { Payment } from "@prisma/client";
 import { PaymentForm } from "../../../components/forms/PaymentForm";
 import { Layout } from "../../../components/Layout";
 import { PageMotion } from "../../../components/motion/PageMotion";
@@ -12,13 +12,17 @@ interface EditProps {
 }
 
 const Edit: NextPage<EditProps> = ({ id }) => {
-  const { data, isLoading } = trpc.useQuery(["payment-get-by-id", { id }], { cacheTime: 0 });
+  const { data, isLoading } = trpc.useQuery(["payment-get-by-id", { id }], {
+    cacheTime: 0,
+  });
   const updatePayment = trpc.useMutation(["payment-update"]);
   const deletePayment = trpc.useMutation(["payment-delete"]);
 
   const onSubmit = (data: Payment) => {
-    data.limit = Number(data.limit);
-    updatePayment.mutateAsync(data).then(() => Router.push("/settings/payments"));
+    console.log("onSubmit", data, "color: green;");
+    updatePayment
+      .mutateAsync(data)
+      .then(() => Router.push("/settings/payments"));
   };
 
   const onDelete = (id: string) => {
@@ -31,14 +35,20 @@ const Edit: NextPage<EditProps> = ({ id }) => {
     <Layout>
       <PageMotion>
         <div>
-          <h1 className="text-3xl">Método de Pagamento {data && `- ${data.name}`}</h1>
+          <h1 className="text-3xl">
+            Método de Pagamento {data && `- ${data.name}`}
+          </h1>
 
           {isLoading && !data ? (
             <div className="grid place-items-center pt-20">
               <Spinner />
             </div>
           ) : (
-            <PaymentForm onSubmit={onSubmit} onDelete={() => onDelete(id)} initialValues={data!} />
+            <PaymentForm
+              onSubmit={onSubmit}
+              onDelete={() => onDelete(id)}
+              initialValues={data!}
+            />
           )}
         </div>
       </PageMotion>

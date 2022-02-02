@@ -10,11 +10,20 @@ interface PeriodFormProps {
   initialValues?: Period;
 }
 
-export const PeriodForm: React.FC<PeriodFormProps> = ({ onSubmit, onDelete, initialValues }) => {
-  const { handleSubmit, register } = useForm<Period>({ defaultValues: initialValues });
+export const PeriodForm: React.FC<PeriodFormProps> = ({
+  onSubmit,
+  onDelete,
+  initialValues,
+}) => {
+  const { handleSubmit, register } = useForm<Period>({
+    defaultValues: initialValues,
+  });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex w-full max-w-md flex-col space-y-4">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex w-full max-w-md flex-col space-y-4"
+    >
       <div className="p-2">
         <label>
           <span className="mb-1 block text-sm text-gray-400">Descrição</span>
@@ -28,7 +37,9 @@ export const PeriodForm: React.FC<PeriodFormProps> = ({ onSubmit, onDelete, init
 
       <div className="p-2">
         <label>
-          <span className="mb-1 block text-sm text-gray-400">Data de Inicio</span>
+          <span className="mb-1 block text-sm text-gray-400">
+            Data de Inicio
+          </span>
           <input
             type="text"
             {...register("start_date")}
@@ -40,7 +51,9 @@ export const PeriodForm: React.FC<PeriodFormProps> = ({ onSubmit, onDelete, init
 
       <div className="p-2">
         <label>
-          <span className="mb-1 block text-sm text-gray-400">Data de Encerramento</span>
+          <span className="mb-1 block text-sm text-gray-400">
+            Data de Encerramento
+          </span>
           <input
             type="text"
             {...register("end_date")}

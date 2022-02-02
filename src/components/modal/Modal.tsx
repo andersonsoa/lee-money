@@ -15,7 +15,7 @@ export const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose }) => {
       transform: "scale(0) rotateX(-360deg)",
     },
     visible: {
-      y: "-25vh",
+      y: "-10vh",
       opacity: 1,
       transition: {
         duration: 0.3,
@@ -49,7 +49,7 @@ export const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose }) => {
       {isOpen && (
         <Backdrop onClick={onClose}>
           <motion.div
-            className="m-auto w-full max-w-2xl rounded-lg px-4"
+            className="m-auto w-full max-w-lg rounded-lg px-4"
             onClick={(e) => e.stopPropagation()}
             variants={badSuspension}
             initial="hidden"

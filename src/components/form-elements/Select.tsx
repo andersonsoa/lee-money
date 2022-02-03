@@ -29,7 +29,7 @@ export const Select: React.FC<SelectProps> = ({
       id={id}
       name={name}
       instanceId={id}
-      className="w-full rounded bg-slate-800 shadow-md outline-none ring-fuchsia-700 focus-within:ring"
+      className="bg-dark-800 w-full rounded shadow-md outline-none ring-fuchsia-700 focus-within:ring"
       placeholder={placeholder}
       noOptionsMessage={() => "Nenhuma opção encontrada"}
       options={options}

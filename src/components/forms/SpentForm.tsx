@@ -5,6 +5,7 @@ import { TextButton } from "../buttons/TextButton";
 import NumberFormat from "react-number-format";
 import { Select } from "../form-elements/Select";
 import { trpc } from "../../utils/trpc";
+import { Input } from "../form-elements/Input";
 
 interface SpentFormProps {
   onSubmit: (data: any) => void;
@@ -37,14 +38,7 @@ export const SpentForm: React.FC<SpentFormProps> = ({
     >
       {/* Descrição */}
       <div className="p-2">
-        <label>
-          <span className="mb-1 block text-sm text-gray-400">Descrição</span>
-          <input
-            type="text"
-            {...register("title", { required: true })}
-            className="w-full rounded bg-slate-800 py-2 px-4 shadow-md outline-none ring-fuchsia-700 focus:ring"
-          />
-        </label>
+        <Input label="Descrição" {...register("title", { required: true })} />
       </div>
 
       {/* Valor */}
@@ -57,7 +51,7 @@ export const SpentForm: React.FC<SpentFormProps> = ({
             rules={{ required: true }}
             render={({ field }) => (
               <NumberFormat
-                className="w-full rounded bg-slate-800 py-2 px-4 shadow-md outline-none ring-fuchsia-700 focus:ring"
+                className="bg-dark-800 w-full rounded py-2 px-4 shadow-md outline-none ring-fuchsia-700 focus:ring"
                 prefix="R$ "
                 thousandSeparator={"."}
                 decimalSeparator=","

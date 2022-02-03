@@ -2,6 +2,7 @@ import { Cicle } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { SolidButton } from "../buttons/SolidButton";
 import { TextButton } from "../buttons/TextButton";
+import { Input } from "../form-elements/Input";
 import { SolidLink } from "../links/SolidLink";
 
 interface CicleFormProps {
@@ -25,42 +26,19 @@ export const CicleForm: React.FC<CicleFormProps> = ({
       className="flex w-full max-w-md flex-col space-y-4"
     >
       <div className="p-2">
-        <label>
-          <span className="mb-1 block text-sm text-gray-400">Descrição</span>
-          <input
-            type="text"
-            {...register("name")}
-            className="w-full rounded bg-slate-800 py-2 px-4 shadow-md outline-none ring-fuchsia-700 focus:ring"
-          />
-        </label>
+        <Input {...register("name", { required: true })} label="Descrição" />
       </div>
 
       <div className="p-2">
-        <label>
-          <span className="mb-1 block text-sm text-gray-400">
-            Data de Inicio
-          </span>
-          <input
-            type="text"
-            {...register("start_date")}
-            disabled
-            className="w-full rounded bg-slate-800 py-2 px-4 shadow-md outline-none ring-fuchsia-700 focus:ring"
-          />
-        </label>
+        <Input {...register("start_date")} disabled label="Data de Inicio" />
       </div>
 
       <div className="p-2">
-        <label>
-          <span className="mb-1 block text-sm text-gray-400">
-            Data de Encerramento
-          </span>
-          <input
-            type="text"
-            {...register("end_date")}
-            disabled
-            className="w-full rounded bg-slate-800 py-2 px-4 shadow-md outline-none ring-fuchsia-700 focus:ring"
-          />
-        </label>
+        <Input
+          {...register("end_date")}
+          disabled
+          label="Data de Encerramento"
+        />
       </div>
 
       <hr className="border-dark-700" />

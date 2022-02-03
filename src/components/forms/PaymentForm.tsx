@@ -6,6 +6,7 @@ import { SolidButton } from "../buttons/SolidButton";
 import { TextButton } from "../buttons/TextButton";
 import { SolidLink } from "../links/SolidLink";
 import NumberFormat from "react-number-format";
+import { Input } from "../form-elements/Input";
 
 interface PaymentFormProps {
   onSubmit: (data: any) => void;
@@ -30,14 +31,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
       className="flex w-full max-w-md flex-col space-y-4"
     >
       <div className="p-2">
-        <label>
-          <span className="mb-1 block text-sm text-gray-400">Descrição</span>
-          <input
-            type="text"
-            {...register("name")}
-            className="w-full rounded bg-slate-800 py-2 px-4 shadow-md outline-none ring-fuchsia-700 focus:ring"
-          />
-        </label>
+        <Input label="Descrição" {...register("name")} />
       </div>
 
       <div className="p-2">
@@ -48,7 +42,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
             control={control}
             render={({ field }) => (
               <NumberFormat
-                className="w-full rounded bg-slate-800 py-2 px-4 shadow-md outline-none ring-fuchsia-700 focus:ring"
+                className="bg-dark-800 w-full rounded py-2 px-4 shadow-md outline-none ring-fuchsia-700 focus:ring"
                 prefix="R$ "
                 thousandSeparator={"."}
                 decimalSeparator=","
@@ -64,15 +58,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
       </div>
 
       <div className="space-y-4 p-2">
-        <label>
-          <span className="mb-1 block text-sm text-gray-400">Cor</span>
-          <input
-            type="text"
-            {...register("color")}
-            readOnly
-            className="w-full rounded bg-slate-800 py-2 px-4 shadow-md outline-none ring-fuchsia-700 focus:ring"
-          />
-        </label>
+        <Input label="Cor" {...register("color")} readOnly />
         <SliderPicker
           onChange={(color) => setColor(color.hex)}
           onChangeComplete={(color) => setValue("color", color.hex)}

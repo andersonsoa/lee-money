@@ -183,7 +183,7 @@ const Dashboard: NextPage = () => {
         </div>
 
         <Modal isOpen={state} onClose={onClose}>
-          <div className="bg-dark-800 space-y-6 rounded-xl p-4 shadow-lg">
+          <div className="from-dark-900 to-dark-900/70 space-y-6 rounded-xl bg-gradient-to-br p-4 shadow-lg backdrop-blur-md">
             <h3 className="border-b border-fuchsia-700 text-xl leading-10">
               Adicionar Gasto
             </h3>

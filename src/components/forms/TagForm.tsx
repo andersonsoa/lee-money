@@ -5,6 +5,7 @@ import { SliderPicker } from "react-color";
 import { useForm } from "react-hook-form";
 import { SolidButton } from "../buttons/SolidButton";
 import { TextButton } from "../buttons/TextButton";
+import { Input } from "../form-elements/Input";
 import { SolidLink } from "../links/SolidLink";
 import { TextLink } from "../links/TextLink";
 
@@ -14,35 +15,33 @@ interface TagFormProps {
   initialValues?: Tag;
 }
 
-export const TagForm: React.FC<TagFormProps> = ({ onSubmit, onDelete, initialValues }) => {
+export const TagForm: React.FC<TagFormProps> = ({
+  onSubmit,
+  onDelete,
+  initialValues,
+}) => {
   const [color, setColor] = useState(initialValues?.color || "#aaa");
 
-  const { handleSubmit, register, setValue } = useForm<Tag>({ defaultValues: initialValues });
+  const { handleSubmit, register, setValue } = useForm<Tag>({
+    defaultValues: initialValues,
+  });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex w-full max-w-md flex-col space-y-4">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex w-full max-w-md flex-col space-y-4"
+    >
       <div className="p-2">
-        <label>
-          <span className="mb-1 block text-sm text-gray-400">Descrição</span>
-          <input
-            type="text"
-            {...register("name")}
-            className="w-full rounded bg-slate-800 py-2 px-4 shadow-md outline-none ring-fuchsia-700 focus:ring"
-          />
-        </label>
+        <Input label="Descrição" {...register("name")} />
       </div>
 
       <div className="space-y-4 p-2">
-        <label>
-          <span className="mb-1 block text-sm text-gray-400">Cor</span>
-          <input
-            type="text"
-            {...register("color")}
-            readOnly
-            className="w-full rounded bg-slate-800 py-2 px-4 shadow-md outline-none ring-fuchsia-700 focus:ring"
-          />
-        </label>
-        <SliderPicker onChange={(color) => setColor(color.hex)} onChangeComplete={(color) => setValue("color", color.hex)} color={color} />
+        <Input label="Cor" {...register("color")} readOnly />
+        <SliderPicker
+          onChange={(color) => setColor(color.hex)}
+          onChangeComplete={(color) => setValue("color", color.hex)}
+          color={color}
+        />
       </div>
 
       <hr className="border-dark-700" />

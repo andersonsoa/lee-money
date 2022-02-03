@@ -18,7 +18,7 @@ const Create: NextPage = () => {
     <Layout>
       <PageMotion>
         <div>
-          <h1 className="text-3xl">Tipo de Gastos - Novo</h1>
+          <h1 className="text-2xl">Tipo de Gastos - Novo</h1>
 
           <TagForm onSubmit={onSubmit} />
         </div>

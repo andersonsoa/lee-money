@@ -20,7 +20,7 @@ const Create: NextPage = () => {
     <Layout>
       <PageMotion>
         <div>
-          <h1 className="text-3xl">Método de Pagamento - Novo</h1>
+          <h1 className="text-2xl">Método de Pagamento - Novo</h1>
 
           <PaymentForm onSubmit={onSubmit} />
         </div>

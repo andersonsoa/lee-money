@@ -35,7 +35,7 @@ const Edit: NextPage<EditProps> = ({ id }) => {
     <Layout>
       <PageMotion>
         <div>
-          <h1 className="text-3xl">
+          <h1 className="text-2xl">
             Método de Pagamento {data && `- ${data.name}`}
           </h1>
 

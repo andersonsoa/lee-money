@@ -10,11 +10,11 @@ export const Layout: React.FC = ({ children }) => {
   const { asPath } = useRouter();
 
   return (
-    <section className="mx-auto grid h-screen w-full max-w-7xl grid-cols-12 grid-rows-[5rem] gap-y-4 gap-x-4 overflow-hidden px-4">
+    <section className="mx-auto grid h-screen w-full grid-cols-12 grid-rows-[5rem] gap-y-4 gap-x-4 overflow-hidden px-4">
       <Toaster />
       <Header />
 
-      <aside className="col-span-3 hidden h-full md:block">
+      <aside className="col-span-3 hidden h-full md:col-span-2 md:block lg:col-span-2">
         <nav>
           <ul className="space-y-2">
             <NavLink
@@ -35,12 +35,12 @@ export const Layout: React.FC = ({ children }) => {
             <NavLinkGroup title="Configurações">
               <NavLinkSimple
                 active={
-                  asPath === "/settings/periods" ||
-                  asPath.includes("/settings/periods")
+                  asPath === "/settings/cicles" ||
+                  asPath.includes("/settings/cicles")
                 }
-                path="/settings/periods"
+                path="/settings/cicles"
               >
-                Periodos
+                Ciclos de Gasto
               </NavLinkSimple>
               <NavLinkSimple
                 active={
@@ -64,7 +64,7 @@ export const Layout: React.FC = ({ children }) => {
           </ul>
         </nav>
       </aside>
-      <main className="scrollbar-hide col-span-12 h-full overflow-x-auto md:col-span-9">
+      <main className="scrollbar-hide col-span-12 h-full overflow-x-auto p-4 md:col-span-9">
         {children}
       </main>
     </section>

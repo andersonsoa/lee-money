@@ -1,21 +1,21 @@
-import { Period } from "@prisma/client";
+import { Cicle } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { SolidButton } from "../buttons/SolidButton";
 import { TextButton } from "../buttons/TextButton";
 import { SolidLink } from "../links/SolidLink";
 
-interface PeriodFormProps {
+interface CicleFormProps {
   onSubmit: (data: any) => void;
   onDelete?: () => void;
-  initialValues?: Period;
+  initialValues?: Cicle;
 }
 
-export const PeriodForm: React.FC<PeriodFormProps> = ({
+export const CicleForm: React.FC<CicleFormProps> = ({
   onSubmit,
   onDelete,
   initialValues,
 }) => {
-  const { handleSubmit, register } = useForm<Period>({
+  const { handleSubmit, register } = useForm<Cicle>({
     defaultValues: initialValues,
   });
 
@@ -79,7 +79,7 @@ export const PeriodForm: React.FC<PeriodFormProps> = ({
             Salvar
           </SolidButton>
 
-          <SolidLink href="/settings/periods" size="md" variant="danger">
+          <SolidLink href="/settings/cicles" size="md" variant="danger">
             Cancelar
           </SolidLink>
         </div>

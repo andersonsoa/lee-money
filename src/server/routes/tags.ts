@@ -10,6 +10,25 @@ export const tags = createRouter()
       return tags;
     },
   })
+  .query("-get-all-select", {
+    async resolve() {
+      const tags = await prismaClient.tag.findMany({
+        select: {
+          id: true,
+          name: true,
+          created_at: true,
+        },
+        orderBy: {
+          created_at: "asc",
+        },
+      });
+
+      return tags.map((tag) => ({
+        label: tag.name,
+        value: tag.id,
+      }));
+    },
+  })
   .query("-get-by-id", {
     input: z.object({
       id: z.string(),

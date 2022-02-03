@@ -1,25 +1,25 @@
-import { Period } from "@prisma/client";
+import { Cicle } from "@prisma/client";
 import type { NextPage } from "next";
 import Router from "next/router";
-import { PeriodForm } from "../../../components/forms/PeriodForm";
+import { CicleForm } from "../../../components/forms/CicleForm";
 import { Layout } from "../../../components/Layout";
 import { PageMotion } from "../../../components/motion/PageMotion";
 import { trpc } from "../../../utils/trpc";
 
 const Create: NextPage = () => {
-  const createCard = trpc.useMutation(["period-create"]);
+  const createCard = trpc.useMutation(["cicle-create"]);
 
-  const onSubmit = (data: Period) => {
-    createCard.mutateAsync(data).then(() => Router.push("/settings/periods"));
+  const onSubmit = (data: Cicle) => {
+    createCard.mutateAsync(data).then(() => Router.push("/settings/cicles"));
   };
 
   return (
     <Layout>
       <PageMotion>
         <div>
-          <h1 className="text-3xl">Períodos - Novo</h1>
+          <h1 className="text-2xl">Ciclos - Novo</h1>
 
-          <PeriodForm onSubmit={onSubmit} />
+          <CicleForm onSubmit={onSubmit} />
         </div>
       </PageMotion>
     </Layout>

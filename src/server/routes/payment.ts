@@ -10,6 +10,25 @@ export const payment = createRouter()
       return payments;
     },
   })
+  .query("-get-all-select", {
+    async resolve() {
+      const payments = await prismaClient.payment.findMany({
+        select: {
+          id: true,
+          name: true,
+          created_at: true,
+        },
+        orderBy: {
+          created_at: "asc",
+        },
+      });
+
+      return payments.map((payment) => ({
+        label: payment.name,
+        value: payment.id,
+      }));
+    },
+  })
   .query("-get-by-id", {
     input: z.object({
       id: z.string(),

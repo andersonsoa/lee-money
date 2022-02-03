@@ -6,15 +6,17 @@ type Option = {
 };
 
 interface SelectProps {
+  id: string;
   name: string;
   options?: Option[];
-  value: Option | null;
+  value?: Option;
   onChange: (value: Option) => void;
   placeholder?: string;
   isLoading?: boolean;
 }
 
 export const Select: React.FC<SelectProps> = ({
+  id,
   name,
   options,
   placeholder,
@@ -24,6 +26,9 @@ export const Select: React.FC<SelectProps> = ({
 }) => {
   return (
     <ReactSelect
+      id={id}
+      name={name}
+      instanceId={id}
       className="w-full rounded bg-slate-800 shadow-md outline-none ring-fuchsia-700 focus-within:ring"
       placeholder={placeholder}
       noOptionsMessage={() => "Nenhuma opção encontrada"}
@@ -68,10 +73,9 @@ export const Select: React.FC<SelectProps> = ({
         }),
       }}
       onChange={(option) => {
-        option && onChange(option);
+        onChange(option!);
       }}
       value={value}
-      name={name}
     />
   );
 };

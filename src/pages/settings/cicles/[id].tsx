@@ -1,7 +1,7 @@
-import { Period } from "@prisma/client";
+import { Cicle } from "@prisma/client";
 import type { GetServerSideProps, NextPage } from "next";
 import Router from "next/router";
-import { PeriodForm } from "../../../components/forms/PeriodForm";
+import { CicleForm } from "../../../components/forms/CicleForm";
 import { Layout } from "../../../components/Layout";
 import { PageMotion } from "../../../components/motion/PageMotion";
 import { Spinner } from "../../../components/Spinner";
@@ -13,44 +13,50 @@ interface EditProps {
 }
 
 const Edit: NextPage<EditProps> = ({ id }) => {
-  const { data, isLoading } = trpc.useQuery(["period-get-by-id", { id }], { cacheTime: 0 });
-  const updatePeriod = trpc.useMutation(["period-update"], {
+  const { data, isLoading } = trpc.useQuery(["cicle-get-by-id", { id }], {
+    cacheTime: 0,
+  });
+  const updateCicle = trpc.useMutation(["cicle-update"], {
     onSuccess: () => {
-      toast.success("Período atualizado com sucesso!");
-      Router.push("/settings/periods");
+      toast.success("Ciclo atualizado com sucesso!");
+      Router.push("/settings/cicles");
     },
   });
 
-  const deletePeriod = trpc.useMutation(["period-delete"], {
-    onSuccess: (period) => {
-      toast.success(`Período <b>${period.name}</b> excluído com sucesso!`);
-      Router.push("/settings/periods");
+  const deleteCicle = trpc.useMutation(["cicle-delete"], {
+    onSuccess: (cicle) => {
+      toast.success(`Ciclo excluído com sucesso!`);
+      Router.push("/settings/cicles");
     },
     onError: (error) => {
       toast.error(error.message);
     },
   });
 
-  const onSubmit = (data: Period) => {
-    updatePeriod.mutate(data);
+  const onSubmit = (data: Cicle) => {
+    updateCicle.mutate(data);
   };
 
   const onDelete = (id: string) => {
-    deletePeriod.mutate({ id });
+    deleteCicle.mutate({ id });
   };
 
   return (
     <Layout>
       <PageMotion>
         <div>
-          <h1 className="text-3xl">Períodos - Detalhes</h1>
+          <h1 className="text-2xl">Ciclos - Detalhes</h1>
 
           {isLoading && !data ? (
             <div className="grid place-items-center pt-20">
               <Spinner />
             </div>
           ) : (
-            <PeriodForm onSubmit={onSubmit} onDelete={() => onDelete(id)} initialValues={data!} />
+            <CicleForm
+              onSubmit={onSubmit}
+              onDelete={() => onDelete(id)}
+              initialValues={data!}
+            />
           )}
         </div>
       </PageMotion>

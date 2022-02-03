@@ -6,22 +6,49 @@ import { createRouter } from "../createRouter";
 export const spents = createRouter()
   .query("-get-all", {
     input: z.object({
-      period_id: z.string(),
+      cicle_id: z.string(),
+      page: z.number().optional().default(1),
+      limit: z.number().optional().default(10),
     }),
     async resolve({ input }) {
-      const { period_id } = input;
+      const { cicle_id, page, limit } = input;
+
       const spents = await prismaClient.spent.findMany({
+        skip: (page - 1) * limit,
+        take: limit,
+
         where: {
-          period_id,
+          cicle_id,
         },
 
         include: {
           tags: true,
           payment: true,
         },
+
+        orderBy: {
+          created_at: "desc",
+        },
       });
 
-      return spents;
+      const total = await prismaClient.spent.count({
+        where: {
+          cicle_id,
+        },
+      });
+
+      return { spents, total };
+    },
+  })
+  .query("-get-all-amount", {
+    async resolve({ input }) {
+      const totalSpent = await prismaClient.spent.findMany({
+        select: {
+          amount: true,
+        },
+      });
+
+      return totalSpent;
     },
   })
   .query("-get-by-id", {
@@ -42,14 +69,14 @@ export const spents = createRouter()
   })
   .mutation("-create", {
     input: z.object({
-      period_id: z.string(),
+      cicle_id: z.string(),
       title: z.string(),
       amount: z.number(),
       payment_id: z.string(),
       tag_id: z.string().nullish(),
     }),
     async resolve({ input }) {
-      const { title, amount, payment_id, tag_id, period_id } = input;
+      const { title, amount, payment_id, tag_id, cicle_id } = input;
 
       if (!payment_id) {
         throw new TRPCError({
@@ -64,7 +91,7 @@ export const spents = createRouter()
           amount,
           payment_id,
           tag_id,
-          period_id,
+          cicle_id,
         },
       });
 

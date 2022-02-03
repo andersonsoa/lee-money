@@ -12,7 +12,9 @@ interface EditProps {
 }
 
 const Edit: NextPage<EditProps> = ({ id }) => {
-  const { data, isLoading } = trpc.useQuery(["tag-get-by-id", { id }], { cacheTime: 0 });
+  const { data, isLoading } = trpc.useQuery(["tag-get-by-id", { id }], {
+    cacheTime: 0,
+  });
   const updateTag = trpc.useMutation(["tag-update"]);
   const deleteTag = trpc.useMutation(["tag-delete"]);
 
@@ -30,14 +32,18 @@ const Edit: NextPage<EditProps> = ({ id }) => {
     <Layout>
       <PageMotion>
         <div>
-          <h1 className="text-3xl">Tipo de Gastos - Detalhes</h1>
+          <h1 className="text-2xl">Tipo de Gastos - Detalhes</h1>
 
           {isLoading && !data ? (
             <div className="grid place-items-center pt-20">
               <Spinner />
             </div>
           ) : (
-            <TagForm onSubmit={onSubmit} onDelete={() => onDelete(id)} initialValues={data!} />
+            <TagForm
+              onSubmit={onSubmit}
+              onDelete={() => onDelete(id)}
+              initialValues={data!}
+            />
           )}
         </div>
       </PageMotion>

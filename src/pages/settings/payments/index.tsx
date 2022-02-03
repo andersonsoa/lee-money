@@ -12,7 +12,7 @@ const Cards: NextPage = () => {
   return (
     <Layout>
       <PageMotion>
-        <h1 className="text-4xl">Métodos de Pagamento</h1>
+        <h1 className="text-2xl">Métodos de Pagamento</h1>
 
         <div className="flex max-w-xl items-center justify-between py-10">
           <TextLink href="/settings/payments/create" variant="success">
@@ -27,7 +27,7 @@ const Cards: NextPage = () => {
             <Spinner />
           </div>
         ) : (
-          <div className="bg-dark-800/10 h-full max-w-xl rounded-lg p-4 shadow-md">
+          <div className="h-full max-w-xl rounded-lg p-4">
             <table className="table w-full">
               <thead className="border-dark-800 border-b-2">
                 <tr className="text-sm text-gray-400">
@@ -50,7 +50,7 @@ const Cards: NextPage = () => {
                       <td className="p-2 text-center font-bold">{idx + 1}</td>
                       <td className="p-2 text-left">{payment.name}</td>
                       <td className="p-2 text-left">
-                        {payment.limit ? Format.number(payment.limit) : "∞"}
+                        {payment.limit ? Format.currency(payment.limit) : "∞"}
                       </td>
                       <td className="items-center p-2 text-center">
                         <div

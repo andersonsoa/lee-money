@@ -23,28 +23,12 @@ export const SpentForm: React.FC<SpentFormProps> = ({
     defaultValues: initialValues,
   });
 
-  const {
-    data: payments,
-    isLoading: paymentLoading,
-    isFetching: paymentFetching,
-  } = trpc.useQuery(["payment-get-all"]);
-
-  const paymentOptions = payments
-    ? payments.map((payment) => ({
-        value: payment.id,
-        label: payment.name,
-      }))
-    : [];
-
-  const {
-    data: tags,
-    isLoading: tagLoading,
-    isFetching: tagFetching,
-  } = trpc.useQuery(["tag-get-all"]);
-
-  const tagOptions = tags
-    ? tags.map((tag) => ({ value: tag.id, label: tag.name }))
-    : [];
+  const paymentQuery = trpc.useQuery(["payment-get-all-select"], {
+    staleTime: 1000 * 60 * 30,
+  });
+  const tagQuery = trpc.useQuery(["tag-get-all-select"], {
+    staleTime: 1000 * 60 * 30,
+  });
 
   return (
     <form
@@ -99,12 +83,12 @@ export const SpentForm: React.FC<SpentFormProps> = ({
             control={control}
             render={({ field }) => (
               <Select
+                id="payment-form-select-id"
                 name="payment_id"
-                isLoading={paymentLoading || paymentFetching}
-                options={paymentOptions}
+                isLoading={paymentQuery.isLoading || paymentQuery.isFetching}
+                options={paymentQuery.data}
                 placeholder="Selecione um método de Pagamento"
                 onChange={(v) => field.onChange(v)}
-                value={field.value}
               />
             )}
           />
@@ -122,12 +106,12 @@ export const SpentForm: React.FC<SpentFormProps> = ({
             control={control}
             render={({ field }) => (
               <Select
+                id="tag-form-select-id"
                 name="tag_id"
-                isLoading={tagLoading || tagFetching}
-                options={tagOptions}
+                isLoading={tagQuery.isLoading || tagQuery.isFetching}
+                options={tagQuery.data}
                 placeholder="Selecione um tipo de gasto"
                 onChange={(v) => field.onChange(v)}
-                value={field.value}
               />
             )}
           />

@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+
 import { useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { SolidButton } from "../components/buttons/SolidButton";
@@ -7,38 +8,39 @@ import { SpentForm } from "../components/forms/SpentForm";
 import { Layout } from "../components/Layout";
 import { Modal } from "../components/modal/Modal";
 import { PageMotion } from "../components/motion/PageMotion";
+import { Pagination } from "../components/Pagination";
 import { Spinner } from "../components/Spinner";
 import { useDisclosure } from "../hooks/useDisclosure";
 import { Format } from "../utils/formatter";
 import { trpc } from "../utils/trpc";
 
 const Dashboard: NextPage = () => {
-  const [period, setPeriod] = useState({ value: "", label: "" });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [cicle, setCicle] = useState({ label: "", value: "" });
 
   const { state, onClose, onOpen } = useDisclosure();
 
-  const { data: periods, isLoading: periodLoading } = trpc.useQuery(
-    ["period-get-all"],
-    {
-      cacheTime: 1000 * 60 * 60,
-      onSuccess: (data) => {
-        setPeriod({
-          label: data[0].name,
-          value: data[0].id,
+  const cicleQuery = trpc.useQuery(["cicle-get-all-select"], {
+    onSuccess: (res) => {
+      if (!cicle.label && res.length > 0) {
+        setCicle({
+          label: res[0].label,
+          value: res[0].value,
         });
-      },
+      }
     },
-  );
-  const { data, refetch, isLoading, isFetching } = trpc.useQuery(
-    ["spent-get-all", { period_id: period.value }],
+  });
+  const spentQuery = trpc.useQuery(
+    ["spent-get-all", { cicle_id: cicle.value, page: currentPage, limit: 5 }],
     {
-      enabled: !!periods,
+      enabled: !!cicleQuery.data && !!cicle.value,
+      staleTime: 1000 * 15,
     },
   );
 
   const spentMutation = trpc.useMutation(["spent-create"], {
     onSuccess: () => {
-      refetch();
+      spentQuery.refetch();
       onClose();
     },
     onError: (error) => {
@@ -53,18 +55,11 @@ const Dashboard: NextPage = () => {
     spentMutation.mutate({
       amount,
       payment_id: payment_id.value,
-      tag_id: tag_id.value,
+      tag_id: tag_id?.value,
       title,
-      period_id: "b5c2b872-53dd-4165-96dc-f3a7c48a9102",
+      cicle_id: cicle.value,
     });
   };
-
-  const options = periods?.map((period) => ({
-    label: period.name,
-    value: period.id,
-  }));
-
-  console.log(period, options);
 
   return (
     <Layout>
@@ -73,24 +68,36 @@ const Dashboard: NextPage = () => {
           <div className="col-span-12 flex justify-between">
             <div className="w-60">
               <Select
-                value={period}
+                id="cicle-select-id"
+                value={cicle}
                 name="Periodo"
-                onChange={(e) => setPeriod(e)}
-                options={options}
-                isLoading={periodLoading}
+                onChange={(e) => setCicle({ value: e.value, label: e.label })}
+                options={cicleQuery.data}
+                isLoading={cicleQuery.isLoading || cicleQuery.isFetching}
               />
             </div>
+
             <SolidButton onClick={onOpen}>Adicionar</SolidButton>
           </div>
-          {isLoading ? (
+
+          {spentQuery.isLoading || cicleQuery.isLoading ? (
             <div className="col-span-12 grid place-items-center pt-20">
               <Spinner />
             </div>
           ) : (
-            <div className="col-span-12">
+            <div className="col-span-12 space-y-6">
+              <Pagination
+                onPageChange={(page) => {
+                  setCurrentPage(page);
+                }}
+                totalCountOfRegisters={spentQuery.data?.total || 0}
+                currentPage={currentPage}
+                registersPerPage={5}
+              />
+
               <table className="mt-2 table w-full">
                 <thead>
-                  <tr className="text-sm text-gray-400">
+                  <tr className="bg-dark-800/50 text-sm text-gray-400">
                     <th className="p-2">#</th>
                     <th
                       className="whitespace-nowrap p-2 text-left"
@@ -126,8 +133,8 @@ const Dashboard: NextPage = () => {
                 </thead>
 
                 <tbody className="text-md">
-                  {data &&
-                    data.map((spent) => (
+                  {spentQuery.data &&
+                    spentQuery.data.spents.map((spent) => (
                       <tr
                         key={spent.id}
                         className="hover:bg-dark-800 rounded-lg transition-all hover:shadow-lg"
@@ -142,7 +149,7 @@ const Dashboard: NextPage = () => {
                           {spent.title}
                         </td>
                         <td className="whitespace-nowrap p-2 align-middle">
-                          {Format.number(spent.amount)}
+                          {Format.currency(spent.amount)}
                         </td>
                         <td className="whitespace-nowrap p-2 align-middle">
                           {new Date(spent.created_at).toLocaleDateString()}

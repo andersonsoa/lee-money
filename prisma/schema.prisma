@@ -10,7 +10,7 @@ datasource db {
   referentialIntegrity = "prisma"
 }
 
-model Period {
+model Cicle {
   id         String    @id @default(uuid())
   name       String
   start_date DateTime
@@ -20,7 +20,7 @@ model Period {
 
   spents Spent[]
 
-  @@map("periods")
+  @@map("cicles")
 }
 
 model Payment {
@@ -43,22 +43,22 @@ model Tag {
   created_at DateTime  @default(now())
   updated_at DateTime? @updatedAt()
 
-  spent_tags Spent[]
+  spents Spent[]
 
   @@map("tags")
 }
 
 model Spent {
   id         String    @id @default(uuid())
-  period_id  String
+  cicle_id   String
   payment_id String
   tag_id     String?
   title      String
-  amount     Int
+  amount     Float
   created_at DateTime  @default(now())
   updated_at DateTime? @updatedAt()
 
-  period  Period  @relation(fields: [period_id], references: [id], onUpdate: NoAction)
+  cicle   Cicle   @relation(fields: [cicle_id], references: [id], onUpdate: NoAction)
   payment Payment @relation(fields: [payment_id], references: [id], onUpdate: NoAction)
   tags    Tag?    @relation(fields: [tag_id], references: [id], onUpdate: NoAction)
 

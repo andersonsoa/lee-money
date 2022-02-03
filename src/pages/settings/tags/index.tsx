@@ -4,6 +4,7 @@ import { Layout } from "../../../components/Layout";
 import { PageMotion } from "../../../components/motion/PageMotion";
 import { Spinner } from "../../../components/Spinner";
 import { trpc } from "../../../utils/trpc";
+import { TextLink } from "../../../components/links/TextLink";
 
 const Tag: NextPage = () => {
   const { data, isLoading, isFetching } = trpc.useQuery(["tag-get-all"]);
@@ -11,14 +12,12 @@ const Tag: NextPage = () => {
   return (
     <Layout>
       <PageMotion>
-        <h1 className="text-4xl">Tipos de Gastos</h1>
+        <h1 className="text-2xl">Tipos de Gastos</h1>
 
         <div className="flex max-w-xl items-center justify-between py-10">
-          <NextLink href="/settings/tags/create">
-            <a className="bg-gray-900/15 hover:bg-dark-800 cursor-pointer rounded-md px-4 py-2 text-sm font-bold uppercase text-green-500 transition-colors hover:shadow-lg">
-              Criar
-            </a>
-          </NextLink>
+          <TextLink href="/settings/tags/create" variant="success">
+            Criar
+          </TextLink>
 
           {isFetching && !isLoading && <Spinner size={4} />}
         </div>
@@ -28,7 +27,7 @@ const Tag: NextPage = () => {
             <Spinner />
           </div>
         ) : (
-          <div className="bg-dark-800/10 h-full max-w-xl rounded-lg p-4 shadow-md">
+          <div className="h-full max-w-xl rounded-lg p-4">
             <table className="table w-full">
               <thead className="border-dark-800 border-b-2">
                 <tr className="text-sm text-gray-400">

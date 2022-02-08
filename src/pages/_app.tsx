@@ -3,14 +3,17 @@ import type { AppProps } from "next/app";
 import { AnimatePresence } from "framer-motion";
 import { withTRPC } from "@trpc/next";
 import { AppRouter } from "../server/routes/_app";
+import { StoreProvider } from "../context/Store";
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   const { asPath } = router;
 
   return (
-    <AnimatePresence exitBeforeEnter presenceAffectsLayout>
-      <Component {...pageProps} key={asPath} />
-    </AnimatePresence>
+    <StoreProvider>
+      <AnimatePresence exitBeforeEnter presenceAffectsLayout>
+        <Component {...pageProps} key={asPath} />
+      </AnimatePresence>
+    </StoreProvider>
   );
 }
 

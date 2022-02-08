@@ -1,7 +1,8 @@
 import { Cicle } from "@prisma/client";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { SolidButton } from "../buttons/SolidButton";
 import { TextButton } from "../buttons/TextButton";
+import DatePicker from "react-datepicker";
 import { Input } from "../form-elements/Input";
 import { SolidLink } from "../links/SolidLink";
 
@@ -16,7 +17,7 @@ export const CicleForm: React.FC<CicleFormProps> = ({
   onDelete,
   initialValues,
 }) => {
-  const { handleSubmit, register } = useForm<Cicle>({
+  const { handleSubmit, register, control } = useForm<Cicle>({
     defaultValues: initialValues,
   });
 
@@ -30,14 +31,30 @@ export const CicleForm: React.FC<CicleFormProps> = ({
       </div>
 
       <div className="p-2">
-        <Input {...register("start_date")} disabled label="Data de Inicio" />
+        <Controller
+          control={control}
+          name="start_date"
+          render={({ field }) => (
+            <Input
+              disabled
+              value={field?.value?.toLocaleDateString()}
+              label="Data de Inicio"
+            />
+          )}
+        />
       </div>
 
       <div className="p-2">
-        <Input
-          {...register("end_date")}
-          disabled
-          label="Data de Encerramento"
+        <Controller
+          control={control}
+          name="end_date"
+          render={({ field }) => (
+            <Input
+              disabled
+              value={field?.value?.toLocaleDateString()}
+              label="Data de Encerramento"
+            />
+          )}
         />
       </div>
 

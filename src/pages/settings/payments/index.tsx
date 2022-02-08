@@ -35,7 +35,7 @@ const Cards: NextPage = () => {
                   <th className="p-2 text-left">Descrição</th>
                   <th className="p-2 text-left">Limite</th>
                   <th className="p-2 text-center">Cor</th>
-                  <th className="p-2 text-center">Crido em</th>
+                  <th className="p-2 text-left">Criado em</th>
                   <th className="p-2"></th>
                 </tr>
               </thead>
@@ -58,7 +58,7 @@ const Cards: NextPage = () => {
                           style={{ backgroundColor: payment.color || "#aaa" }}
                         />
                       </td>
-                      <td className="p-2 text-center">
+                      <td className="p-2 text-left">
                         {new Date(payment.created_at).toLocaleDateString()}
                       </td>
                       <td className="space-x-4 p-2 text-right">

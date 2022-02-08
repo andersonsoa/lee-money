@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { RiAppsFill, RiHome3Fill } from "react-icons/ri";
+import { RiAppsFill, RiHome3Fill, RiPieChartBoxFill } from "react-icons/ri";
 import { Toaster } from "react-hot-toast";
 import { Header } from "./Header";
 import { NavLink } from "./sidebar/NavLink";
@@ -26,10 +26,17 @@ export const Layout: React.FC = ({ children }) => {
             </NavLink>
             <NavLink
               Icon={RiAppsFill}
-              href="/dashboard"
-              active={asPath === "/dashboard"}
+              href="/spents"
+              active={asPath === "/spents"}
             >
-              Dashboard
+              Gastos
+            </NavLink>
+            <NavLink
+              Icon={RiPieChartBoxFill}
+              href="/charts"
+              active={asPath === "/charts"}
+            >
+              Gráficos
             </NavLink>
 
             <NavLinkGroup title="Configurações">

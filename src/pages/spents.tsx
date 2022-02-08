@@ -10,14 +10,16 @@ import { Modal } from "../components/modal/Modal";
 import { PageMotion } from "../components/motion/PageMotion";
 import { Pagination } from "../components/Pagination";
 import { Spinner } from "../components/Spinner";
+import { useStore } from "../context/Store";
 import { useDisclosure } from "../hooks/useDisclosure";
 import { Format } from "../utils/formatter";
 import { trpc } from "../utils/trpc";
 
-const Dashboard: NextPage = () => {
+const Spents: NextPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [cicle, setCicle] = useState({ label: "", value: "" });
 
+  const { changeCicle } = useStore();
   const { state, onClose, onOpen } = useDisclosure();
 
   const cicleQuery = trpc.useQuery(["cicle-get-all-select"], {
@@ -71,7 +73,10 @@ const Dashboard: NextPage = () => {
                 id="cicle-select-id"
                 value={cicle}
                 name="Periodo"
-                onChange={(e) => setCicle({ value: e.value, label: e.label })}
+                onChange={(e) => {
+                  setCicle({ value: e.value, label: e.label });
+                  changeCicle(e.label);
+                }}
                 options={cicleQuery.data}
                 isLoading={cicleQuery.isLoading || cicleQuery.isFetching}
               />
@@ -196,4 +201,4 @@ const Dashboard: NextPage = () => {
   );
 };
 
-export default Dashboard;
+export default Spents;

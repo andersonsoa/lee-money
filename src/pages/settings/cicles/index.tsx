@@ -5,24 +5,41 @@ import { PageMotion } from "../../../components/motion/PageMotion";
 import { Spinner } from "../../../components/Spinner";
 import { trpc } from "../../../utils/trpc";
 import { TextLink } from "../../../components/links/TextLink";
+import { PageTitle } from "../../../components/forms/PageTitle";
+import { useCallback } from "react";
+import { Cicle } from "@prisma/client";
 
 const Cicle: NextPage = () => {
-  const { data, isLoading, isFetching } = trpc.useQuery(["cicle-get-all"]);
+  const formatQuery = useCallback((cicles: Cicle[]) => {
+    return cicles.map((cicle) => {
+      return {
+        ...cicle,
+        start_date: new Date(cicle.start_date),
+        end_date: cicle.end_date && new Date(cicle.end_date),
+      };
+    });
+  }, []);
+
+  const cicleQuery = trpc.useQuery(["cicle-get-all"], {
+    select: formatQuery,
+  });
 
   return (
     <Layout>
       <PageMotion>
-        <h1 className="text-2xl">Ciclos</h1>
+        <PageTitle>Ciclos</PageTitle>
 
         <div className="flex max-w-xl items-center justify-between py-10">
           <TextLink href="/settings/cicles/create" variant="success">
             Criar
           </TextLink>
 
-          {isFetching && !isLoading && <Spinner size={4} />}
+          {cicleQuery.isFetching && !cicleQuery.isLoading && (
+            <Spinner size={4} />
+          )}
         </div>
 
-        {isLoading ? (
+        {cicleQuery.isLoading ? (
           <div className="grid max-w-xl place-items-center pt-20">
             <Spinner />
           </div>
@@ -33,14 +50,14 @@ const Cicle: NextPage = () => {
                 <tr className="text-sm text-gray-400">
                   <th className="p-2">#</th>
                   <th className="p-2 text-left">Descrição</th>
-                  <th className="p-2 text-center">Início</th>
-                  <th className="p-2 text-center">Fim</th>
+                  <th className="p-2 text-left">Início</th>
+                  <th className="p-2 text-left">Fim</th>
                   <th className="p-2"></th>
                 </tr>
               </thead>
 
               <tbody>
-                {data?.map((cicle, idx) => {
+                {cicleQuery.data?.map((cicle, idx) => {
                   return (
                     <tr
                       key={cicle.id}
@@ -48,13 +65,11 @@ const Cicle: NextPage = () => {
                     >
                       <td className="p-2 text-center font-bold">{idx + 1}</td>
                       <td className="p-2 text-left">{cicle.name}</td>
-                      <td className="items-center p-2 text-center">
-                        {new Date(cicle.start_date).toLocaleDateString()}
+                      <td className="p-2 text-left">
+                        {cicle.start_date?.toLocaleDateString()}
                       </td>
-                      <td className="p-2 text-center">
-                        {cicle.end_date
-                          ? new Date(cicle.end_date).toLocaleDateString()
-                          : ""}
+                      <td className="p-2 text-left">
+                        {cicle.end_date?.toLocaleDateString()}
                       </td>
                       <td className="space-x-4 p-2 text-right">
                         <NextLink href={`/settings/cicles/${cicle.id}`}>

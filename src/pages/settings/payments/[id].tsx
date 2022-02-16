@@ -13,7 +13,8 @@ interface EditProps {
 
 const Edit: NextPage<EditProps> = ({ id }) => {
   const { data, isLoading } = trpc.useQuery(["payment-get-by-id", { id }], {
-    cacheTime: 0,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   });
   const updatePayment = trpc.useMutation(["payment-update"]);
   const deletePayment = trpc.useMutation(["payment-delete"]);

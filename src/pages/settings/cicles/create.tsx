@@ -4,6 +4,7 @@ import Router from "next/router";
 import { CicleForm } from "../../../components/forms/CicleForm";
 import { Layout } from "../../../components/Layout";
 import { PageMotion } from "../../../components/motion/PageMotion";
+import { PageTitle } from "../../../components/PageTitle";
 import { trpc } from "../../../utils/trpc";
 
 const Create: NextPage = () => {
@@ -16,8 +17,10 @@ const Create: NextPage = () => {
   return (
     <Layout>
       <PageMotion>
-        <div>
-          <h1 className="text-2xl">Ciclos - Novo</h1>
+        <div className="max-w-md">
+          <div className="mb-5 px-2">
+            <PageTitle>Ciclos - Novo</PageTitle>
+          </div>
 
           <CicleForm onSubmit={onSubmit} />
         </div>

@@ -85,6 +85,26 @@ export const spents = createRouter()
         });
       }
 
+      const cicle = await prismaClient.cicle.findUnique({
+        where: {
+          id: cicle_id,
+        },
+      });
+
+      if (!cicle) {
+        throw new TRPCError({
+          message: "Ciclo não encontrado",
+          code: "NOT_FOUND",
+        });
+      }
+
+      if (cicle.end_date) {
+        throw new TRPCError({
+          message: "Ciclo já finalizado",
+          code: "BAD_REQUEST",
+        });
+      }
+
       const spent = await prismaClient.spent.create({
         data: {
           title,

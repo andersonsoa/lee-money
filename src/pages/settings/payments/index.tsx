@@ -7,7 +7,10 @@ import { Format } from "../../../utils/formatter";
 import { trpc } from "../../../utils/trpc";
 
 const Cards: NextPage = () => {
-  const { data, isLoading, isFetching } = trpc.useQuery(["payment-get-all"]);
+  const paymentQuery = trpc.useQuery(["payment-get-all"], {
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+  });
 
   return (
     <Layout>
@@ -19,10 +22,12 @@ const Cards: NextPage = () => {
             Criar
           </TextLink>
 
-          {isFetching && !isLoading && <Spinner size={4} />}
+          {paymentQuery.isFetching && !paymentQuery.isLoading && (
+            <Spinner size={4} />
+          )}
         </div>
 
-        {isLoading ? (
+        {paymentQuery.isLoading ? (
           <div className="grid max-w-xl place-items-center pt-20">
             <Spinner />
           </div>
@@ -41,7 +46,7 @@ const Cards: NextPage = () => {
               </thead>
 
               <tbody>
-                {data?.map((payment, idx) => {
+                {paymentQuery.data?.map((payment, idx) => {
                   return (
                     <tr
                       key={payment.id}

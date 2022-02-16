@@ -2,7 +2,6 @@ import { Cicle } from "@prisma/client";
 import { Controller, useForm } from "react-hook-form";
 import { SolidButton } from "../buttons/SolidButton";
 import { TextButton } from "../buttons/TextButton";
-import DatePicker from "react-datepicker";
 import { Input } from "../form-elements/Input";
 import { SolidLink } from "../links/SolidLink";
 
@@ -24,7 +23,7 @@ export const CicleForm: React.FC<CicleFormProps> = ({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex w-full max-w-md flex-col space-y-4"
+      className="flex w-full flex-col space-y-4"
     >
       <div className="p-2">
         <Input {...register("name", { required: true })} label="Descrição" />

@@ -4,6 +4,6 @@
 
 @layer base {
   body {
-    @apply from-dark-900 to-dark-800 font-poppins bg-gradient-to-br text-gray-50;
+    @apply font-poppins from-dark-900 to-dark-800 bg-gradient-to-br text-slate-200 antialiased;
   }
 }

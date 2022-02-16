@@ -8,7 +8,7 @@ export const Header: React.FC = () => {
   const { cicle } = useStore();
 
   return (
-    <header className="col-span-12 mb-4 flex items-center justify-between border-b-[1px] border-fuchsia-900">
+    <header className="mb-4 flex h-full items-center justify-between border-b-[1px] border-fuchsia-900 px-4">
       <Logo size="text-lg" innerSize="text-2xl" />
 
       <div className="flex items-center gap-4">

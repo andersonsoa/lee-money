@@ -5,23 +5,13 @@ import { PageMotion } from "../../../components/motion/PageMotion";
 import { Spinner } from "../../../components/Spinner";
 import { trpc } from "../../../utils/trpc";
 import { TextLink } from "../../../components/links/TextLink";
-import { PageTitle } from "../../../components/forms/PageTitle";
 import { useCallback } from "react";
 import { Cicle } from "@prisma/client";
+import { PageTitle } from "../../../components/PageTitle";
 
 const Cicle: NextPage = () => {
-  const formatQuery = useCallback((cicles: Cicle[]) => {
-    return cicles.map((cicle) => {
-      return {
-        ...cicle,
-        start_date: new Date(cicle.start_date),
-        end_date: cicle.end_date && new Date(cicle.end_date),
-      };
-    });
-  }, []);
-
   const cicleQuery = trpc.useQuery(["cicle-get-all"], {
-    select: formatQuery,
+    refetchOnWindowFocus: false,
   });
 
   return (

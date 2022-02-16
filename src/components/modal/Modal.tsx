@@ -56,7 +56,9 @@ export const Modal: React.FC<ModalProps> = ({ children, isOpen, onClose }) => {
             animate="visible"
             exit="exit"
           >
-            {children}
+            <div className="from-dark-900 to-dark-900/70 space-y-6 rounded-xl bg-gradient-to-br p-4 shadow-lg backdrop-blur-md">
+              {children}
+            </div>
           </motion.div>
         </Backdrop>
       )}

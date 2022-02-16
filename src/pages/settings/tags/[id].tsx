@@ -13,7 +13,8 @@ interface EditProps {
 
 const Edit: NextPage<EditProps> = ({ id }) => {
   const { data, isLoading } = trpc.useQuery(["tag-get-by-id", { id }], {
-    cacheTime: 0,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   });
   const updateTag = trpc.useMutation(["tag-update"]);
   const deleteTag = trpc.useMutation(["tag-delete"]);

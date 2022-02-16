@@ -7,7 +7,10 @@ import { trpc } from "../../../utils/trpc";
 import { TextLink } from "../../../components/links/TextLink";
 
 const Tag: NextPage = () => {
-  const { data, isLoading, isFetching } = trpc.useQuery(["tag-get-all"]);
+  const tagQuery = trpc.useQuery(["tag-get-all"], {
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+  });
 
   return (
     <Layout>
@@ -19,10 +22,10 @@ const Tag: NextPage = () => {
             Criar
           </TextLink>
 
-          {isFetching && !isLoading && <Spinner size={4} />}
+          {tagQuery.isFetching && !tagQuery.isLoading && <Spinner size={4} />}
         </div>
 
-        {isLoading ? (
+        {tagQuery.isLoading ? (
           <div className="grid max-w-xl place-items-center pt-20">
             <Spinner />
           </div>
@@ -40,7 +43,7 @@ const Tag: NextPage = () => {
               </thead>
 
               <tbody>
-                {data?.map((tag, idx) => {
+                {tagQuery.data?.map((tag, idx) => {
                   return (
                     <tr
                       key={tag.id}

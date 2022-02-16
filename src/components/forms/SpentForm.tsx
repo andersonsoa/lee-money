@@ -74,6 +74,7 @@ export const SpentForm: React.FC<SpentFormProps> = ({
           </span>
           <Controller
             name="payment_id"
+            rules={{ required: true }}
             control={control}
             render={({ field }) => (
               <Select
@@ -98,6 +99,7 @@ export const SpentForm: React.FC<SpentFormProps> = ({
           <Controller
             name="tag_id"
             control={control}
+            rules={{ required: true }}
             render={({ field }) => (
               <Select
                 id="tag-form-select-id"

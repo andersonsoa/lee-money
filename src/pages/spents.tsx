@@ -1,7 +1,10 @@
+import { motion } from "framer-motion";
 import type { NextPage } from "next";
 
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { FaEye } from "react-icons/fa";
+import { RiMenu3Fill, RiMenuFill } from "react-icons/ri";
 import { SolidButton } from "../components/buttons/SolidButton";
 import { Select } from "../components/form-elements/Select";
 import { SpentForm } from "../components/forms/SpentForm";
@@ -23,6 +26,8 @@ const Spents: NextPage = () => {
   const { state, onClose, onOpen } = useDisclosure();
 
   const cicleQuery = trpc.useQuery(["cicle-get-all-select"], {
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
     onSuccess: (res) => {
       if (!cicle.label && res.length > 0) {
         setCicle({
@@ -43,10 +48,11 @@ const Spents: NextPage = () => {
   const spentMutation = trpc.useMutation(["spent-create"], {
     onSuccess: () => {
       spentQuery.refetch();
+      toast.success("Gasto criado com sucesso!");
       onClose();
     },
     onError: (error) => {
-      console.log(error);
+      toast.error(error.message);
       onClose();
     },
   });
@@ -82,7 +88,12 @@ const Spents: NextPage = () => {
               />
             </div>
 
-            <SolidButton onClick={onOpen}>Adicionar</SolidButton>
+            <div className="flex gap-2">
+              <SolidButton onClick={onOpen}>Adicionar</SolidButton>
+              <button className="bg-dark-800 grid place-items-center rounded-md px-3 py-3 text-lg shadow-md">
+                <RiMenuFill />
+              </button>
+            </div>
           </div>
 
           {spentQuery.isLoading || cicleQuery.isLoading ? (
@@ -188,13 +199,11 @@ const Spents: NextPage = () => {
         </div>
 
         <Modal isOpen={state} onClose={onClose}>
-          <div className="from-dark-900 to-dark-900/70 space-y-6 rounded-xl bg-gradient-to-br p-4 shadow-lg backdrop-blur-md">
-            <h3 className="border-b border-fuchsia-700 text-xl leading-10">
-              Adicionar Gasto
-            </h3>
+          <h3 className="border-b border-fuchsia-700 text-xl leading-10">
+            Adicionar Gasto
+          </h3>
 
-            <SpentForm onSubmit={onSubmit} onClose={onClose} />
-          </div>
+          <SpentForm onSubmit={onSubmit} onClose={onClose} />
         </Modal>
       </PageMotion>
     </Layout>

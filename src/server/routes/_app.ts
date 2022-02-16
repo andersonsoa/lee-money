@@ -7,7 +7,7 @@ import { spents } from "./spents";
 import { cicles } from "./cicles";
 
 export const appRouter = createRouter()
-  // .transformer(superjson)
+  .transformer(superjson)
   .merge("tag", tags)
   .merge("payment", payment)
   .merge("cicle", cicles)

@@ -45,9 +45,25 @@ export const cicles = createRouter()
         where: {
           id,
         },
+        include: {
+          spents: {
+            select: {
+              amount: true,
+            },
+          },
+        },
       });
 
-      return cicle;
+      if (cicle) {
+        return {
+          ...cicle,
+          total_spents:
+            cicle.spents.reduce((acc, cur) => acc + cur.amount, 0) || 0,
+          total_count: cicle.spents.length,
+        };
+      }
+
+      return null;
     },
   })
   .mutation("-create", {
@@ -115,5 +131,27 @@ export const cicles = createRouter()
       });
 
       return cicle;
+    },
+  })
+  .mutation("-close", {
+    input: z.object({
+      id: z.string(),
+    }),
+    resolve: async ({ input }) => {
+      const { id } = input;
+
+      await prismaClient.cicle.update({
+        where: {
+          id,
+        },
+        data: {
+          end_date: new Date(),
+        },
+      });
+
+      return {
+        id,
+        message: "Ciclo fechado com sucesso",
+      };
     },
   });

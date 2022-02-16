@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
-import { PageTitle } from "../components/forms/PageTitle";
 import { Layout } from "../components/Layout";
 import { PageMotion } from "../components/motion/PageMotion";
+import { PageTitle } from "../components/PageTitle";
 
 const AreaChart = dynamic(() => import("../components/charts/AreaChart"), {
   ssr: false,
